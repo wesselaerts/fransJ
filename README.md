@@ -1,47 +1,60 @@
 # DELF C1 — Préparation 🌸
 
-Een persoonlijke oefen-app voor het DELF C1 schrijftentamen.
+Persoonlijke oefen-app voor het DELF C1 schrijftentamen, met mooi roze app-icoontje voor op je iPhone home screen.
+
+## Wat upload je naar GitHub?
+
+**Alle 6 deze bestanden** moeten in de root van je repo:
+
+```
+index.html              ← de app
+manifest.json           ← PWA-config voor home screen
+apple-touch-icon.png    ← icoon op iPhone (180×180)
+icon-192.png            ← Android/grote iconen
+icon-512.png            ← grote iconen / splash
+favicon.png             ← browser tab
+```
 
 ## Snel deployen op GitHub Pages (5 min)
 
 ### 1. Maak een nieuwe GitHub repo
-- Ga naar github.com → New repository
+- github.com → New repository
 - Naam: `delf-c1` (of wat je wilt)
 - Maak 'm **public** (vereist voor gratis GitHub Pages)
 
-### 2. Upload het bestand
-- Klik in je nieuwe repo op **"Add file" → "Upload files"**
-- Sleep `index.html` erin
-- Commit ("Add app")
+### 2. Upload alle 6 bestanden
+- Klik in de repo op **"Add file" → "Upload files"**
+- Sleep alle 6 bestanden erin (index.html, manifest.json, 4× png)
+- Commit ("Add app + icons")
 
 ### 3. Activeer GitHub Pages
-- Repo → **Settings** → **Pages** (links in het menu)
+- Repo → **Settings** → **Pages**
 - Source: **Deploy from a branch**
 - Branch: **main**, folder: **/ (root)**
 - Save
 
-Na ~1 minuut staat je app live op:
+Na ~1 minuut staat de app live op:
 ```
-https://JOUW-GEBRUIKERSNAAM.github.io/delf-c1/
+https://JOUW-NAAM.github.io/delf-c1/
 ```
 
-### 4. Open op je iPhone
-- Open de link in **Safari**
-- Tik op **Delen** (vierkant met pijl omhoog)
-- Scroll → **"Zet op beginscherm"**
-- Geef 'm een naam ("DELF") → Voeg toe
-- Nu staat de app als echt icoon op je beginscherm, fullscreen, geen browser-chrome
+### 4. Toevoegen aan iPhone beginscherm
+- Open de link in **Safari** (móet Safari zijn, geen Chrome)
+- Tik op **Delen** (vierkant met pijl ↑)
+- Scroll naar beneden → **"Zet op beginscherm"**
+- Naam (bv. "DELF") → Voeg toe
+
+Nu staat de app met het **roze DELF C1 icoontje** op je beginscherm. Tikken opent 'm fullscreen, zonder browserbalken — voelt als een echte app.
 
 ### 5. Eerste keer openen
-- De app vraagt naar je Anthropic API-sleutel
-- Plak 'm in → de app test 'm meteen
-- Klaar! Je sleutel blijft veilig in je telefoon-storage
+- De app vraagt je Anthropic API-sleutel
+- Plak 'm in → de app test 'm meteen → klaar!
 
 ## Voor je vriendin
 
-Stuur haar dezelfde URL. Zij doet stap 4 en 5 op haar eigen iPhone. Ze heeft haar eigen API-sleutel nodig **of** ze gebruikt jouw sleutel (vertel haar 'm dan persoonlijk — niet via de URL).
+Stuur haar dezelfde URL. Stappen 4 en 5 doet ze op haar eigen iPhone. Ze gebruikt haar eigen API-sleutel **of** jouw sleutel (dan vertel je 'm haar persoonlijk).
 
-Haar voortgang en jouw voortgang staan apart (elk in haar/jouw eigen browser-storage).
+Haar voortgang en jouw voortgang staan apart — ieder in haar/jouw eigen browser.
 
 ## API-sleutel krijgen
 
@@ -50,17 +63,22 @@ Haar voortgang en jouw voortgang staan apart (elk in haar/jouw eigen browser-sto
 3. **API Keys** → Create Key → kopieer de `sk-ant-...` sleutel
 4. Plak in de app
 
-Kosten: ~€0.01 per essay-feedback met Sonnet, ~€0.10 met Opus. €5 is genoeg voor 4 weken intensief oefenen.
+**Kosten** (met Sonnet, default):
+- ~€0.01 per essay-feedback
+- €5 is genoeg voor 4 weken intensief oefenen
+
+In **Instellingen** kun je switchen naar Opus voor betere feedback (~€0.10/feedback).
 
 ## Privacy & veiligheid
 
-- Je API-sleutel staat alléén in je eigen browser (localStorage)
-- Alle voortgang/essays staan in je browser, niet op een server
-- Calls gaan rechtstreeks naar Anthropic, niet via een tussenpartij
+- API-sleutel en voortgang staan **alléén in je eigen browser** (localStorage)
+- Geen tussenpartij — calls gaan direct naar Anthropic
 - Wis alles via **Instellingen → Reset alles**
 
-## Wijzigen?
+## Iets wijzigen?
 
-Edit `index.html` rechtstreeks op GitHub (potlood-icoon) en commit. Binnen 1 min staat de nieuwe versie live.
+Edit `index.html` rechtstreeks op GitHub (potlood-icoon) → commit → 1 min later staat de nieuwe versie live.
 
-Veel succes met 15 juni! 🌸
+---
+
+🌸 Veel succes met 15 juni!
