@@ -103,7 +103,7 @@ function loadState() {
     progress: lsGet(STORAGE_KEYS.progress, defaultProgress),
     writings: lsGet(STORAGE_KEYS.writings, []),
     apikey: localStorage.getItem(STORAGE_KEYS.apikey) || "",
-    model: localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-20250514"
+    model: localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-6"
   };
 }
 const saveUser = (u) => lsSet(STORAGE_KEYS.user, u);
@@ -126,7 +126,7 @@ function updateStreak(user) {
 
 async function callClaude(systemPrompt, userMessage, maxTokens = 1500) {
   const apiKey = localStorage.getItem(STORAGE_KEYS.apikey);
-  const model = localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-20250514";
+  const model = localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-6";
   if (!apiKey) throw new Error("Geen API-sleutel ingesteld. Ga naar Instellingen.");
   const response = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
@@ -274,7 +274,7 @@ function SetupScreen({ onSave }) {
 function SettingsScreen({ onBack, onKeyChanged }) {
   const [key, setKey] = useState(localStorage.getItem(STORAGE_KEYS.apikey) || "");
   const [showKey, setShowKey] = useState(false);
-  const [model, setModel] = useState(localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-20250514");
+  const [model, setModel] = useState(localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-6");
   const [saved, setSaved] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
 
@@ -306,8 +306,8 @@ function SettingsScreen({ onBack, onKeyChanged }) {
         <h3 className="text-xs font-bold text-pink-700/70 uppercase tracking-widest mb-2">Model</h3>
         <div className="space-y-2 mb-3">
           {[
-            { v: "claude-sonnet-4-20250514", l: "Claude Sonnet 4", d: "Snel & goedkoop (~€0.01/feedback)" },
-            { v: "claude-opus-4-20250514", l: "Claude Opus 4", d: "Beste kwaliteit (~€0.10/feedback)" }
+            { v: "claude-sonnet-4-6", l: "Claude Sonnet 4.6", d: "Snel & goedkoop (~€0.015/feedback)" },
+            { v: "claude-opus-4-7", l: "Claude Opus 4.7", d: "Beste kwaliteit (~€0.025/feedback)" }
           ].map(m => (
             <button key={m.v} onClick={() => setModel(m.v)}
               className={`w-full text-left p-3 rounded-2xl border-2 transition ${model === m.v ? "border-pink-400 bg-pink-50" : "border-pink-100 bg-white"}`}>

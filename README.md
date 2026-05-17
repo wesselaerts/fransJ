@@ -63,11 +63,11 @@ Haar voortgang en jouw voortgang staan apart — ieder in haar/jouw eigen browse
 3. **API Keys** → Create Key → kopieer de `sk-ant-...` sleutel
 4. Plak in de app
 
-**Kosten** (met Sonnet, default):
-- ~€0.01 per essay-feedback
+**Kosten** (met Sonnet 4.6, default):
+- ~€0.015 per essay-feedback
 - €5 is genoeg voor 4 weken intensief oefenen
 
-In **Instellingen** kun je switchen naar Opus voor betere feedback (~€0.10/feedback).
+In **Instellingen** kun je switchen naar Opus 4.7 voor de beste kwaliteit (~€0.025/feedback — nog steeds erg goedkoop).
 
 ## Privacy & veiligheid
 
