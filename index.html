@@ -1,0 +1,2428 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#fdf2f8" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="DELF C1" />
+<meta name="mobile-web-app-capable" content="yes" />
+<title>DELF C1 — Préparation</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌸%3C/text%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23fce7f3'/%3E%3Ctext x='50%25' y='62%25' text-anchor='middle' font-size='60'%3E🌸%3C/text%3E%3C/svg%3E" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+  html, body { margin: 0; padding: 0; background: #fdf2f8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
+  body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+  .safe-bottom { padding-bottom: calc(env(safe-area-inset-bottom) + 0.75rem); }
+  textarea { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+  /* Prevent zoom on input focus iOS */
+  input, textarea { font-size: 16px; }
+  #loader { display: flex; min-height: 100vh; align-items: center; justify-content: center; background: linear-gradient(135deg, #fdf2f8, #fff1f2); color: #be185d; }
+  #loader .spin { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div id="root"><div id="loader"><div style="display:flex;flex-direction:column;align-items:center;gap:12px"><svg class="spin" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg><div style="font-weight:600">Chargement...</div></div></div></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+
+// ============================================================
+// INLINE ICONS (lucide-style)
+// ============================================================
+const Svg = ({ d, fill = "none", ...props }) => (
+  <svg viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props} dangerouslySetInnerHTML={{ __html: d }} />
+);
+const Home = (p) => <Svg {...p} d='<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>' />;
+const PenLine = (p) => <Svg {...p} d='<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>' />;
+const BookOpen = (p) => <Svg {...p} d='<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>' />;
+const Sparkles = (p) => <Svg {...p} d='<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>' />;
+const TrendingUp = (p) => <Svg {...p} d='<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>' />;
+const Flame = ({ fill, ...p }) => <Svg {...p} fill={fill || "none"} d='<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>' />;
+const Target = (p) => <Svg {...p} d='<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>' />;
+const ChevronRight = (p) => <Svg {...p} d='<polyline points="9 18 15 12 9 6"/>' />;
+const ChevronLeft = (p) => <Svg {...p} d='<polyline points="15 18 9 12 15 6"/>' />;
+const Check = (p) => <Svg {...p} d='<polyline points="20 6 9 17 4 12"/>' />;
+const X = (p) => <Svg {...p} d='<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>' />;
+const Loader2 = (p) => <Svg {...p} d='<path d="M21 12a9 9 0 1 1-6.219-8.56"/>' />;
+const ArrowLeft = (p) => <Svg {...p} d='<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>' />;
+const RotateCcw = (p) => <Svg {...p} d='<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>' />;
+const Star = ({ fill, ...p }) => <Svg {...p} fill={fill || "none"} d='<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/>' />;
+const BookMarked = (p) => <Svg {...p} d='<path d="M10 2v8l3-3 3 3V2"/><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>' />;
+const Brain = (p) => <Svg {...p} d='<path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>' />;
+const Calendar = (p) => <Svg {...p} d='<rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' />;
+const Award = (p) => <Svg {...p} d='<circle cx="12" cy="8" r="6"/><polyline points="15.477 12.89 17 22 12 19 7 22 8.523 12.89"/>' />;
+const Eye = (p) => <Svg {...p} d='<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>' />;
+const EyeOff = (p) => <Svg {...p} d='<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/>' />;
+const Settings = (p) => <Svg {...p} d='<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>' />;
+const Key = (p) => <Svg {...p} d='<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/>' />;
+const Trash2 = (p) => <Svg {...p} d='<polyline points="3 6 5 6 21 6"/><path d="m19 6-1.5 14.36A2 2 0 0 1 15.51 22H8.49a2 2 0 0 1-2-1.64L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' />;
+const ExternalLink = (p) => <Svg {...p} d='<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>' />;
+
+// ============================================================
+// HELPERS — localStorage + Anthropic API direct call
+// ============================================================
+const STORAGE_KEYS = {
+  user: "delf:user", progress: "delf:progress", writings: "delf:writings",
+  apikey: "delf:apikey", model: "delf:model"
+};
+const defaultUser = { streak: 0, lastSession: null, totalSessions: 0 };
+const defaultProgress = { grammar: {}, vocab: {}, essays: [], syntheses: [] };
+
+function lsGet(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch (e) { return fallback; }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
+}
+
+function loadState() {
+  return {
+    user: lsGet(STORAGE_KEYS.user, defaultUser),
+    progress: lsGet(STORAGE_KEYS.progress, defaultProgress),
+    writings: lsGet(STORAGE_KEYS.writings, []),
+    apikey: localStorage.getItem(STORAGE_KEYS.apikey) || "",
+    model: localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-20250514"
+  };
+}
+const saveUser = (u) => lsSet(STORAGE_KEYS.user, u);
+const saveProgress = (p) => lsSet(STORAGE_KEYS.progress, p);
+const saveWritings = (w) => lsSet(STORAGE_KEYS.writings, w);
+const saveApikey = (k) => localStorage.setItem(STORAGE_KEYS.apikey, k);
+const saveModel = (m) => localStorage.setItem(STORAGE_KEYS.model, m);
+
+function todayKey() { return new Date().toISOString().slice(0, 10); }
+function yesterdayKey() { const d = new Date(); d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); }
+function updateStreak(user) {
+  const t = todayKey();
+  if (user.lastSession === t) return user;
+  const newUser = { ...user };
+  newUser.streak = user.lastSession === yesterdayKey() ? (user.streak || 0) + 1 : 1;
+  newUser.lastSession = t;
+  newUser.totalSessions = (user.totalSessions || 0) + 1;
+  return newUser;
+}
+
+async function callClaude(systemPrompt, userMessage, maxTokens = 1500) {
+  const apiKey = localStorage.getItem(STORAGE_KEYS.apikey);
+  const model = localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-20250514";
+  if (!apiKey) throw new Error("Geen API-sleutel ingesteld. Ga naar Instellingen.");
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: maxTokens,
+      system: systemPrompt,
+      messages: [{ role: "user", content: userMessage }]
+    })
+  });
+  if (!response.ok) {
+    const errBody = await response.json().catch(() => ({}));
+    const msg = (errBody.error && errBody.error.message) || `HTTP ${response.status}`;
+    throw new Error(msg);
+  }
+  const data = await response.json();
+  if (!data.content) throw new Error("Geen antwoord van API");
+  return data.content.map(b => b.text || "").join("\n");
+}
+
+// ============================================================
+// UI PRIMITIVES
+// ============================================================
+const Pill = ({ children, color = "pink" }) => {
+  const colors = {
+    pink: "bg-pink-100 text-pink-700", rose: "bg-rose-100 text-rose-700",
+    soft: "bg-pink-50 text-pink-600", green: "bg-emerald-100 text-emerald-700",
+    amber: "bg-amber-100 text-amber-700", fuchsia: "bg-fuchsia-100 text-fuchsia-700"
+  };
+  return <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${colors[color]}`}>{children}</span>;
+};
+const Card = ({ children, className = "" }) => (
+  <div className={`bg-white rounded-3xl shadow-[0_4px_24px_-6px_rgba(244,114,182,0.18)] border border-pink-100/60 ${className}`}>{children}</div>
+);
+const PrimaryButton = ({ onClick, children, disabled, className = "" }) => (
+  <button onClick={onClick} disabled={disabled}
+    className={`w-full px-6 py-3.5 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 text-white font-semibold shadow-lg shadow-pink-500/30 active:scale-[0.98] transition disabled:opacity-50 disabled:cursor-not-allowed ${className}`}>
+    {children}
+  </button>
+);
+const SecondaryButton = ({ onClick, children, className = "" }) => (
+  <button onClick={onClick} className={`px-5 py-3 rounded-2xl bg-pink-50 border border-pink-200 text-pink-700 font-medium active:scale-[0.98] transition ${className}`}>
+    {children}
+  </button>
+);
+const BackButton = ({ onClick }) => (
+  <button onClick={onClick} className="flex items-center gap-1 text-pink-600 text-sm font-medium active:opacity-70 transition">
+    <ArrowLeft className="w-4 h-4" /> Terug
+  </button>
+);
+const renderMd = (s) => ({ __html: s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br/>") });
+
+// ============================================================
+// SETUP / API KEY SCREEN
+// ============================================================
+function SetupScreen({ onSave }) {
+  const [key, setKey] = useState("");
+  const [showKey, setShowKey] = useState(false);
+  const [err, setErr] = useState(null);
+  const [testing, setTesting] = useState(false);
+
+  const validate = async () => {
+    const k = key.trim();
+    if (!k.startsWith("sk-ant-")) {
+      setErr("Een Anthropic API-sleutel begint met 'sk-ant-'");
+      return;
+    }
+    setErr(null); setTesting(true);
+    saveApikey(k);
+    try {
+      // Quick test: minimal API call
+      await callClaude("Réponds en un mot: bonjour.", "Test", 20);
+      onSave();
+    } catch (e) {
+      setErr(`Sleutel werkt niet: ${e.message}`);
+      setTesting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-rose-50/40 to-white px-5 py-10 flex flex-col">
+      <div className="max-w-md mx-auto w-full flex-1">
+        <div className="text-center mb-8 pt-4">
+          <div className="text-6xl mb-3">🌸</div>
+          <h1 className="text-4xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Bienvenue</h1>
+          <p className="text-pink-700/80 mt-2 text-sm">DELF C1 oefen-app</p>
+        </div>
+        <Card className="p-5 mb-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-400 flex items-center justify-center"><Key className="w-5 h-5 text-white" /></div>
+            <h2 className="font-bold text-pink-950">Vul je Anthropic API-sleutel in</h2>
+          </div>
+          <p className="text-sm text-pink-900/80 leading-relaxed mb-4">
+            De app gebruikt Claude voor de AI-feedback op je essays. Je sleutel wordt <strong>alleen op deze telefoon opgeslagen</strong> (in browser-storage), nooit verzonden naar iemand anders.
+          </p>
+          <div className="relative mb-3">
+            <input
+              type={showKey ? "text" : "password"}
+              value={key}
+              onChange={(e) => setKey(e.target.value)}
+              placeholder="sk-ant-..."
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+              className="w-full px-4 py-3 pr-12 rounded-2xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none text-pink-950 placeholder-pink-300 font-mono text-sm"
+            />
+            <button onClick={() => setShowKey(s => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-pink-400 active:opacity-70">
+              {showKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+            </button>
+          </div>
+          {err && <p className="text-sm text-rose-600 mb-3">{err}</p>}
+          <PrimaryButton onClick={validate} disabled={!key.trim() || testing}>
+            {testing
+              ? <span className="flex items-center justify-center gap-2"><Loader2 className="w-5 h-5 animate-spin" /> Testen...</span>
+              : "Opslaan & beginnen"}
+          </PrimaryButton>
+        </Card>
+        <Card className="p-4 bg-gradient-to-br from-pink-50/60 to-rose-50/60">
+          <h3 className="font-semibold text-pink-950 text-sm mb-2">Nog geen sleutel?</h3>
+          <ol className="text-xs text-pink-900/85 space-y-1.5 list-decimal pl-4">
+            <li>Ga naar <span className="font-mono">console.anthropic.com</span></li>
+            <li>Maak een account, voeg €5-10 credits toe</li>
+            <li>Maak onder <em>API Keys</em> een nieuwe sleutel</li>
+            <li>Plak hierboven</li>
+          </ol>
+          <p className="text-xs text-pink-700/70 mt-3">
+            <strong>Kosten</strong>: ~€0.02 per essay-feedback. €5 is ruim voldoende voor 4 weken intensief oefenen.
+          </p>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// SETTINGS SCREEN
+// ============================================================
+function SettingsScreen({ onBack, onKeyChanged }) {
+  const [key, setKey] = useState(localStorage.getItem(STORAGE_KEYS.apikey) || "");
+  const [showKey, setShowKey] = useState(false);
+  const [model, setModel] = useState(localStorage.getItem(STORAGE_KEYS.model) || "claude-sonnet-4-20250514");
+  const [saved, setSaved] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
+
+  const save = () => {
+    saveApikey(key.trim()); saveModel(model);
+    setSaved(true); setTimeout(() => setSaved(false), 1500);
+    onKeyChanged && onKeyChanged();
+  };
+  const resetAll = () => {
+    Object.values(STORAGE_KEYS).forEach(k => localStorage.removeItem(k));
+    window.location.reload();
+  };
+
+  return (
+    <div className="px-5 pt-3 pb-8 space-y-4">
+      <BackButton onClick={onBack} />
+      <h1 className="text-3xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Instellingen</h1>
+
+      <Card className="p-4">
+        <h2 className="font-bold text-pink-950 mb-3 flex items-center gap-2"><Key className="w-4 h-4 text-pink-500" /> API-sleutel</h2>
+        <div className="relative mb-3">
+          <input type={showKey ? "text" : "password"} value={key} onChange={(e) => setKey(e.target.value)}
+            autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"
+            className="w-full px-4 py-3 pr-12 rounded-2xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none text-pink-950 font-mono text-sm" />
+          <button onClick={() => setShowKey(s => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-pink-400">
+            {showKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          </button>
+        </div>
+        <h3 className="text-xs font-bold text-pink-700/70 uppercase tracking-widest mb-2">Model</h3>
+        <div className="space-y-2 mb-3">
+          {[
+            { v: "claude-sonnet-4-20250514", l: "Claude Sonnet 4", d: "Snel & goedkoop (~€0.01/feedback)" },
+            { v: "claude-opus-4-20250514", l: "Claude Opus 4", d: "Beste kwaliteit (~€0.10/feedback)" }
+          ].map(m => (
+            <button key={m.v} onClick={() => setModel(m.v)}
+              className={`w-full text-left p-3 rounded-2xl border-2 transition ${model === m.v ? "border-pink-400 bg-pink-50" : "border-pink-100 bg-white"}`}>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold text-pink-950 text-sm">{m.l}</div>
+                  <div className="text-xs text-pink-700/70">{m.d}</div>
+                </div>
+                {model === m.v && <Check className="w-5 h-5 text-pink-500" />}
+              </div>
+            </button>
+          ))}
+        </div>
+        <PrimaryButton onClick={save}>{saved ? <span className="flex items-center justify-center gap-2"><Check className="w-5 h-5" /> Opgeslagen</span> : "Opslaan"}</PrimaryButton>
+      </Card>
+
+      <Card className="p-4">
+        <h2 className="font-bold text-pink-950 mb-2 flex items-center gap-2"><Trash2 className="w-4 h-4 text-rose-500" /> Voortgang resetten</h2>
+        <p className="text-xs text-pink-700/80 mb-3">Hiermee verwijder je alle scores, geschreven essays en je API-sleutel.</p>
+        {!confirmReset ? (
+          <SecondaryButton onClick={() => setConfirmReset(true)} className="w-full">Reset alles</SecondaryButton>
+        ) : (
+          <div className="flex gap-2">
+            <SecondaryButton onClick={() => setConfirmReset(false)} className="flex-1">Annuleer</SecondaryButton>
+            <button onClick={resetAll} className="flex-1 px-5 py-3 rounded-2xl bg-rose-500 text-white font-medium active:scale-[0.98]">Ja, alles wissen</button>
+          </div>
+        )}
+      </Card>
+
+      <Card className="p-4 bg-gradient-to-br from-pink-50/60 to-rose-50/60">
+        <p className="text-xs text-pink-700/80 leading-relaxed">
+          <strong>Privacy</strong>: alle data (sleutel, voortgang, essays) staat alléén in deze browser. Niets gaat naar een server, behalve directe calls naar Anthropic voor feedback.
+        </p>
+      </Card>
+    </div>
+  );
+}
+// ============================================================
+// GRAMMAR DATA — A1 to C1
+// ============================================================
+const GRAMMAR = [
+  // ============ A1 ============
+  {
+    id: "a1_articles", level: "A1", title: "Articles définis & indéfinis",
+    nl: "Bepaalde lidwoorden: **le** (m), **la** (v), **l'** (klinker), **les** (mv). Onbepaalde: **un, une, des**. Na 'pas' wordt un/une/des → **de**: 'Je n'ai pas de voiture.'",
+    exercises: [
+      { q: "___ étudiante est française.", options: ["Le", "La", "L'", "Les"], answer: 1, explain: "Étudiante is vrouwelijk enkelvoud → la." },
+      { q: "Je voudrais ___ café, s'il vous plaît.", options: ["le", "un", "des", "la"], answer: 1, explain: "Onbepaald, één koffie → un." },
+      { q: "Elle n'a pas ___ frères.", options: ["des", "les", "de", "du"], answer: 2, explain: "Na negatie wordt des → de." },
+      { q: "___ amis de Paul sont sympathiques.", options: ["Les", "Des", "Le", "L'"], answer: 0, explain: "Specifieke vrienden → les." },
+      { q: "C'est ___ idée intéressante.", options: ["un", "une", "la", "des"], answer: 1, explain: "Idée is vrouwelijk → une." },
+      { q: "Il habite à ___ campagne.", options: ["le", "la", "l'", "un"], answer: 1, explain: "Vaste uitdrukking 'à la campagne'." }
+    ]
+  },
+  {
+    id: "a1_etre_avoir", level: "A1", title: "Être & Avoir (présent)",
+    nl: "**Être**: je suis, tu es, il/elle est, nous sommes, vous êtes, ils/elles sont. **Avoir**: j'ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont. Avoir voor leeftijd, honger, dorst, gelijk.",
+    exercises: [
+      { q: "Nous ___ très contents.", options: ["avons", "sommes", "êtes", "ont"], answer: 1, explain: "Nous sommes (être)." },
+      { q: "Ils ___ vingt ans.", options: ["sont", "ont", "êtes", "avons"], answer: 1, explain: "Leeftijd met avoir." },
+      { q: "Tu ___ fatigué?", options: ["a", "es", "as", "est"], answer: 1, explain: "Tu es (être)." },
+      { q: "Vous ___ raison.", options: ["êtes", "avez", "est", "as"], answer: 1, explain: "Avoir raison = gelijk hebben." },
+      { q: "J'___ faim.", options: ["suis", "ai", "es", "a"], answer: 1, explain: "Avoir faim." },
+      { q: "Elle ___ professeur.", options: ["a", "est", "as", "ai"], answer: 1, explain: "Beroep zonder lidwoord met être." }
+    ]
+  },
+  {
+    id: "a1_present_er", level: "A1", title: "Présent: verbes en -ER",
+    nl: "Regelmatige -er werkwoorden: stam + **e/es/e/ons/ez/ent**. Parler: je parle, tu parles, il parle, nous parlons, vous parlez, ils parlent. Stamveranderingen: acheter → j'achète, j'appelle, je préfère.",
+    exercises: [
+      { q: "Nous ___ français à la maison. (parler)", options: ["parle", "parles", "parlons", "parlent"], answer: 2, explain: "Nous + -ons." },
+      { q: "Vous ___ la musique? (aimer)", options: ["aime", "aimez", "aimons", "aiment"], answer: 1, explain: "Vous + -ez." },
+      { q: "Ils ___ au foot. (jouer)", options: ["joue", "joues", "jouons", "jouent"], answer: 3, explain: "Ils + -ent." },
+      { q: "Je ___ à Amsterdam. (habiter)", options: ["habite", "habites", "habitons", "habitent"], answer: 0, explain: "Je + -e." },
+      { q: "Tu ___ tes amis. (inviter)", options: ["invite", "invites", "invitez", "invitent"], answer: 1, explain: "Tu + -es." },
+      { q: "Marc ___ une voiture. (acheter)", options: ["achete", "achète", "achetes", "achètes"], answer: 1, explain: "è in stam." }
+    ]
+  },
+  {
+    id: "a1_negation", level: "A1", title: "Négation (ne...pas)",
+    nl: "Negatie omsluit het werkwoord: **ne + ww + pas**. Voor klinker: **n'**. Andere: ne...jamais (nooit), ne...plus (niet meer), ne...rien (niets), ne...personne (niemand).",
+    exercises: [
+      { q: "Je ___ comprends ___ le problème.", options: ["ne / pas", "n' / pas", "ne / rien", "ne / jamais"], answer: 0, explain: "Eenvoudige ontkenning." },
+      { q: "Il ___ a ___ d'argent.", options: ["ne / pas", "n' / pas", "ne / plus", "n' / rien"], answer: 1, explain: "Voor klinker: n'." },
+      { q: "Elle ne mange ___ de viande.", options: ["pas", "jamais", "plus", "rien"], answer: 1, explain: "Nooit → jamais." },
+      { q: "Nous ne voyons ___ dans le noir.", options: ["pas", "personne", "rien", "plus"], answer: 2, explain: "Niets → rien." },
+      { q: "Je ne connais ___ ici.", options: ["rien", "personne", "jamais", "plus"], answer: 1, explain: "Niemand → personne." }
+    ]
+  },
+  {
+    id: "a1_adjectifs", level: "A1", title: "Adjectifs: genre & nombre",
+    nl: "Regel: + **e** voor vrouwelijk, + **s** voor meervoud. Sommige: -eux → -euse (heureuse), -if → -ive (active), -er → -ère (chère). Onregelmatig: beau/belle, nouveau/nouvelle, vieux/vieille. Voor klinker: bel, nouvel, vieil.",
+    exercises: [
+      { q: "Une fille ___ (intelligent).", options: ["intelligent", "intelligente", "intelligents", "intelligentes"], answer: 1, explain: "Vrouwelijk → +e." },
+      { q: "Des étudiants ___ (sérieux).", options: ["sérieux", "sérieuse", "sérieuses", "sérieuxs"], answer: 0, explain: "-x blijft." },
+      { q: "Une ___ maison (beau).", options: ["beau", "bel", "belle", "belles"], answer: 2, explain: "Belle." },
+      { q: "Des voitures ___ (cher).", options: ["chers", "chères", "cheres", "chèrès"], answer: 1, explain: "Cher → chères." },
+      { q: "Un ___ appartement (nouveau).", options: ["nouveau", "nouvel", "nouvelle", "nouveaux"], answer: 1, explain: "Voor klinker: nouvel." }
+    ]
+  },
+  {
+    id: "a1_questions", level: "A1", title: "Poser une question",
+    nl: "Drie manieren: intonatie ('Tu viens?'), **est-ce que** ('Est-ce que tu viens?'), **inversion** ('Viens-tu?'). Vraagwoorden: où, quand, comment, pourquoi, combien, qui, que/quoi, quel.",
+    exercises: [
+      { q: "___ tu habites?", options: ["Où", "Quand", "Comment", "Qui"], answer: 0, explain: "Plaats → où." },
+      { q: "___ est-ce que tu pars?", options: ["Où", "Quand", "Combien", "Pourquoi"], answer: 1, explain: "Tijd → quand." },
+      { q: "___ vous appelez-vous?", options: ["Que", "Comment", "Pourquoi", "Qui"], answer: 1, explain: "Naam: comment." },
+      { q: "___ coûte ce livre?", options: ["Combien", "Comment", "Quel", "Que"], answer: 0, explain: "Prijs → combien." },
+      { q: "___-ce que vous parlez français?", options: ["Qu'est", "Est", "Que", "Comment"], answer: 1, explain: "Est-ce que..." }
+    ]
+  },
+  {
+    id: "a1_cest", level: "A1", title: "C'est vs Il/Elle est",
+    nl: "**C'est** + lidwoord/naam ('C'est un médecin'). **Il/Elle est** + beroep/nationaliteit zonder lidwoord ('Il est médecin'). Met adjectief: 'C'est intéressant' (algemeen), 'Il est intéressant' (specifiek persoon).",
+    exercises: [
+      { q: "___ une bonne idée.", options: ["Il est", "Elle est", "C'est", "Ce sont"], answer: 2, explain: "C'est + lidwoord." },
+      { q: "Mon père? ___ ingénieur.", options: ["Il est", "C'est", "Ils sont", "Elle est"], answer: 0, explain: "Beroep zonder lidwoord → il est." },
+      { q: "___ mes amis.", options: ["Il est", "Ce sont", "C'est", "Ils est"], answer: 1, explain: "Meervoud → ce sont." },
+      { q: "La tour Eiffel? ___ magnifique!", options: ["Il est", "C'est", "Elle est", "Ce sont"], answer: 1, explain: "Algemeen → c'est." },
+      { q: "___ français, mais il habite à Berlin.", options: ["C'est", "Il est", "Ce sont", "Elle est"], answer: 1, explain: "Nationaliteit → il est." }
+    ]
+  },
+  {
+    id: "a1_pronominaux", level: "A1", title: "Verbes pronominaux",
+    nl: "Wederkerend voornw + werkwoord: je **me** lave, tu **te** laves, il **se** lave, nous **nous** lavons, vous **vous** lavez, ils **se** lavent. Voor klinker: m'/t'/s'.",
+    exercises: [
+      { q: "Je ___ à 7 heures. (se lever)", options: ["se lève", "me lève", "te lèves", "nous levons"], answer: 1, explain: "Je + me." },
+      { q: "Nous ___ chaque matin. (se promener)", options: ["se promenons", "nous promenons", "me promenons", "vous promenez"], answer: 1, explain: "Nous + nous." },
+      { q: "Comment tu ___? (s'appeler)", options: ["t'appelle", "te appelles", "t'appelles", "s'appelles"], answer: 2, explain: "T' voor klinker." },
+      { q: "Elle ___ rapidement. (s'habiller)", options: ["s'habille", "se habille", "m'habille", "s'habillent"], answer: 0, explain: "Se → s'." }
+    ]
+  },
+
+  // ============ A2 ============
+  {
+    id: "a2_pc_avoir", level: "A2", title: "Passé composé avec AVOIR",
+    nl: "**Avoir** (présent) + **participe passé**. -er → -é, -ir → -i, -re → -u. Onregelmatig: eu, été, fait, pris, mis, dit, vu, su, voulu, dû, pu, lu, écrit, mort, né.",
+    exercises: [
+      { q: "Hier, j'___ un film. (regarder)", options: ["ai regardé", "as regardé", "a regardé", "ai regarder"], answer: 0, explain: "J'ai + regardé." },
+      { q: "Elle ___ son examen. (réussir)", options: ["a réussi", "a réussit", "as réussi", "ai réussi"], answer: 0, explain: "-ir → -i." },
+      { q: "Nous ___ une pizza. (prendre)", options: ["avons prendu", "avons pris", "ont pris", "avez pris"], answer: 1, explain: "Pris." },
+      { q: "Ils ___ la vérité. (dire)", options: ["ont dit", "ont disé", "ont dis", "avez dit"], answer: 0, explain: "Dit." },
+      { q: "Tu ___ tes clés? (perdre)", options: ["a perdu", "as perdu", "as perdé", "as perdé"], answer: 1, explain: "Perdu." },
+      { q: "Vous ___ ce matin? (faire)", options: ["avez fait", "avez faisé", "avez faire", "avez fais"], answer: 0, explain: "Fait." },
+      { q: "J'___ tout. (voir)", options: ["ai voyé", "ai vu", "ai vois", "ai voir"], answer: 1, explain: "Vu." }
+    ]
+  },
+  {
+    id: "a2_pc_etre", level: "A2", title: "Passé composé avec ÊTRE",
+    nl: "14 bewegingsww + pronominale ww. DR MRS VANDERTRAMP: devenir, revenir, monter, rester, sortir, venir, aller, naître, descendre, entrer, retourner, tomber, rentrer, arriver, mourir, partir. **PV congrueert met onderwerp**.",
+    exercises: [
+      { q: "Elle ___ à Paris. (aller)", options: ["a allé", "est allé", "est allée", "a allée"], answer: 2, explain: "Être + vr.s. → -ée." },
+      { q: "Ils ___ tôt. (partir)", options: ["ont parti", "sont partis", "sont parti", "ont partis"], answer: 1, explain: "Être + mv → -s." },
+      { q: "Marie et Sophie ___. (arriver)", options: ["sont arrivées", "sont arrivés", "ont arrivé", "est arrivée"], answer: 0, explain: "Twee vrouwen → -ées." },
+      { q: "Je ___ en 1990. (naître, je=homme)", options: ["suis né", "suis née", "ai né", "suis naître"], answer: 0, explain: "M.s. → né." },
+      { q: "Nous ___ tard hier. (rentrer)", options: ["avons rentré", "sommes rentré", "sommes rentrés", "ont rentré"], answer: 2, explain: "Être + mv." },
+      { q: "Tu ___ au cinéma? (aller, tu=Marie)", options: ["es allé", "es allée", "as allé", "es aller"], answer: 1, explain: "Vr.s. → allée." }
+    ]
+  },
+  {
+    id: "a2_imparfait", level: "A2", title: "L'imparfait",
+    nl: "Stam van **nous** (présent) + **-ais, -ais, -ait, -ions, -iez, -aient**. Uitzondering: être → ét-. Gebruik: gewoonten, beschrijvingen, achtergrond, onderbroken handeling.",
+    exercises: [
+      { q: "Quand j'étais petit, je ___ au foot. (jouer)", options: ["jouais", "jouait", "jouions", "joué"], answer: 0, explain: "Je + -ais." },
+      { q: "Il ___ beau ce jour-là.", options: ["faisait", "faisais", "fait", "a fait"], answer: 0, explain: "Weer = imparfait." },
+      { q: "Nous ___ chaque été en Italie. (aller)", options: ["allions", "allons", "alliez", "avons allé"], answer: 0, explain: "Gewoonte." },
+      { q: "Pendant qu'elle ___, le téléphone a sonné. (dormir)", options: ["dormait", "dormi", "a dormi", "dormais"], answer: 0, explain: "Achtergrond onderbroken." },
+      { q: "Vous ___ tous les jours? (étudier)", options: ["étudiez", "étudiiez", "étudiais", "avez étudié"], answer: 1, explain: "Vous + dubbele i." },
+      { q: "C'___ un homme grand et fort. (être)", options: ["était", "étais", "est", "a été"], answer: 0, explain: "Beschrijving." }
+    ]
+  },
+  {
+    id: "a2_futur_proche", level: "A2", title: "Futur proche",
+    nl: "**Aller** (présent) + infinitief. Voor nabije toekomst of zekere plannen.",
+    exercises: [
+      { q: "Demain, je ___ mes parents. (voir)", options: ["vais voir", "vais voire", "vois", "ai vu"], answer: 0, explain: "Vais + infinitief." },
+      { q: "Nous ___ une fête. (organiser)", options: ["organisons", "allons organiser", "allons organisé", "avons organisé"], answer: 1, explain: "Allons + inf." },
+      { q: "Ils ___ partir bientôt.", options: ["vont", "vais", "va", "allez"], answer: 0, explain: "Ils → vont." },
+      { q: "Elle ne ___ pas venir.", options: ["va", "vas", "vais", "vont"], answer: 0, explain: "Elle → va." }
+    ]
+  },
+  {
+    id: "a2_cod", level: "A2", title: "Pronoms COD (le, la, les)",
+    nl: "LV-voornw: **me, te, le/la, nous, vous, les**. Voor klinker: m'/t'/l'. Voor het werkwoord. Met avoir-PC: accord met voorafgaand LV ('La pomme que j'ai mangée').",
+    exercises: [
+      { q: "Tu connais Paul? Oui, je ___ connais.", options: ["le", "la", "lui", "les"], answer: 0, explain: "Paul m.s. → le." },
+      { q: "Tu manges la pomme? Oui, je ___ mange.", options: ["le", "la", "lui", "les"], answer: 1, explain: "Pomme v.s. → la." },
+      { q: "Vous voyez ces films? Oui, nous ___ voyons.", options: ["le", "les", "la", "leur"], answer: 1, explain: "Mv → les." },
+      { q: "Tu m'appelles? Oui, je ___ appelle.", options: ["me", "te", "t'", "lui"], answer: 2, explain: "T' voor klinker." },
+      { q: "La lettre? Je ___ ai écrit___ hier.", options: ["la / écrit", "l' / écrite", "la / écrite", "l' / écrit"], answer: 1, explain: "L' + accord v → écrite." }
+    ]
+  },
+  {
+    id: "a2_coi", level: "A2", title: "Pronoms COI (lui, leur)",
+    nl: "Indirect voornw: **me, te, lui, nous, vous, leur**. Geen m/v verschil in 3e p. Geen accord in PC. Werkwoorden met à+persoon: parler, téléphoner, dire, demander, écrire.",
+    exercises: [
+      { q: "Je parle à Marie. → Je ___ parle.", options: ["la", "lui", "leur", "elle"], answer: 1, explain: "À Marie → lui." },
+      { q: "Tu téléphones à tes parents? → Tu ___ téléphones?", options: ["les", "leur", "lui", "eux"], answer: 1, explain: "À tes parents → leur." },
+      { q: "Elle ___ a dit la vérité (à son ami).", options: ["le", "lui", "l'", "leur"], answer: 1, explain: "Lui." },
+      { q: "Nous ___ écrivons souvent (à nos grands-parents).", options: ["les", "lui", "leur", "nous"], answer: 2, explain: "Leur." },
+      { q: "'Je ___ vois et je ___ parle.' (à mon frère)", options: ["le / le", "le / lui", "lui / le", "lui / lui"], answer: 1, explain: "Voir=COD, parler à=COI." }
+    ]
+  },
+  {
+    id: "a2_partitif", level: "A2", title: "Articles partitifs (du, de la, des)",
+    nl: "Ontelbare hoeveelheid: **du** (m), **de la** (v), **de l'** (klinker), **des** (mv). Na negatie en hoeveelheid → **de**.",
+    exercises: [
+      { q: "Je voudrais ___ pain.", options: ["du", "de la", "des", "de"], answer: 0, explain: "Pain m → du." },
+      { q: "Tu prends ___ eau?", options: ["du", "de la", "de l'", "des"], answer: 2, explain: "Eau, klinker → de l'." },
+      { q: "Elle mange ___ légumes.", options: ["du", "de la", "des", "de"], answer: 2, explain: "Mv → des." },
+      { q: "Il n'y a pas ___ lait.", options: ["du", "de", "de la", "des"], answer: 1, explain: "Negatie → de." },
+      { q: "J'ai beaucoup ___ travail.", options: ["du", "de", "de la", "des"], answer: 1, explain: "Hoeveelheid → de." },
+      { q: "Elle achète ___ viande et ___ légumes.", options: ["du / des", "de la / des", "de / de", "de la / de"], answer: 1, explain: "Viande v, légumes mv." }
+    ]
+  },
+  {
+    id: "a2_comparatif", level: "A2", title: "Comparatif & superlatif",
+    nl: "**plus/moins/aussi + adj/adv + que**. Met zelfst nw: plus/moins/autant **de** + nw + que. Onregelmatig: meilleur (beter, adj), pire (slechter), mieux (beter, bw). Superlatief: **le/la/les plus/moins**.",
+    exercises: [
+      { q: "Paul est ___ grand ___ Marc.", options: ["plus / de", "plus / que", "très / que", "plus / comme"], answer: 1, explain: "plus...que." },
+      { q: "Marie travaille ___ Paul.", options: ["mieux que", "meilleur que", "plus bon que", "très bien que"], answer: 0, explain: "Adv beter = mieux." },
+      { q: "C'est le ___ restaurant de la ville.", options: ["plus bon", "meilleur", "mieux", "plus mieux"], answer: 1, explain: "Adj: meilleur." },
+      { q: "Elle a ___ amis ___ moi.", options: ["plus de / que", "plus / que", "plus que / des", "beaucoup d' / que"], answer: 0, explain: "plus de + nw." },
+      { q: "C'est l'examen ___ difficile de l'année.", options: ["plus", "le plus", "très", "moins"], answer: 1, explain: "Superlatief." }
+    ]
+  },
+  {
+    id: "a2_possessifs", level: "A2", title: "Adjectifs possessifs",
+    nl: "Stemmen overeen met **bezit**, niet bezitter. mon/ma/mes, ton/ta/tes, son/sa/ses, notre/nos, votre/vos, leur/leurs. Voor klinker: mon/ton/son ook bij vrouwelijk ('mon amie').",
+    exercises: [
+      { q: "C'est ___ voiture. (de Pierre)", options: ["son", "sa", "ses", "leur"], answer: 1, explain: "Voiture v.s. → sa." },
+      { q: "Voici ___ amis. (de moi)", options: ["mon", "ma", "mes", "mien"], answer: 2, explain: "Mv → mes." },
+      { q: "___ école est grande. (de nous)", options: ["Notre", "Nos", "Notres", "Nôtre"], answer: 0, explain: "Notre." },
+      { q: "___ amie habite ici. (de moi)", options: ["Ma", "Mon", "Mes", "Mien"], answer: 1, explain: "Voor klinker: mon." },
+      { q: "Les enfants jouent avec ___ jouets.", options: ["son", "ses", "leur", "leurs"], answer: 3, explain: "Bezit mv → leurs." }
+    ]
+  },
+  {
+    id: "a2_imperatif", level: "A2", title: "L'impératif",
+    nl: "Drie vormen: tu, nous, vous. -er ww: tu zonder -s ('Parle!'). Onregelmatig: être (sois/soyons/soyez), avoir (aie/ayons/ayez), savoir (sache...). Negatie: ne+ww+pas.",
+    exercises: [
+      { q: "___ ton livre! (ouvrir, tu)", options: ["Ouvre", "Ouvres", "Ouvris", "Ouvrir"], answer: 0, explain: "-er tu zonder -s." },
+      { q: "___ vite! (venir, vous)", options: ["Venez", "Venir", "Viens", "Venons"], answer: 0, explain: "Vous-vorm." },
+      { q: "___ patient! (être, tu)", options: ["Est", "Es", "Sois", "Soit"], answer: 2, explain: "Sois." },
+      { q: "Ne ___ pas en retard! (être, vous)", options: ["soyez", "êtes", "sois", "soyons"], answer: 0, explain: "Soyez." },
+      { q: "___-moi la vérité! (dire, tu)", options: ["Dis", "Dit", "Dise", "Dire"], answer: 0, explain: "Dis." }
+    ]
+  },
+
+  // ============ B1 ============
+  {
+    id: "b1_futur", level: "B1", title: "Futur simple",
+    nl: "**Infinitief + -ai, -as, -a, -ons, -ez, -ont** (-re: zonder eind-e). Onregelmatige stammen: être (ser-), avoir (aur-), aller (ir-), faire (fer-), pouvoir (pourr-), savoir (saur-), voir (verr-), venir (viendr-), devoir (devr-), vouloir (voudr-), tenir (tiendr-), envoyer (enverr-). In 'quand/dès que/lorsque'-bijzin: futur als hoofdzin futur is.",
+    exercises: [
+      { q: "Demain, je ___ à Lyon. (aller)", options: ["irai", "allerai", "vais", "allais"], answer: 0, explain: "Aller → ir-." },
+      { q: "Nous ___ tout faire. (pouvoir)", options: ["pourrons", "pouvons", "pouvions", "pouvrons"], answer: 0, explain: "Pourr-." },
+      { q: "Ils ___ heureux. (être)", options: ["sont", "seront", "étaient", "etre"], answer: 1, explain: "Ser-." },
+      { q: "Quand il ___, nous partirons. (arriver)", options: ["arrive", "arrivera", "arriverait", "arrivait"], answer: 1, explain: "Quand + futur." },
+      { q: "Vous ___ ce livre. (lire)", options: ["lisez", "lirez", "liriez", "lisiez"], answer: 1, explain: "Lir-." },
+      { q: "Tu ___ la vérité. (savoir)", options: ["sauras", "saviez", "saches", "sais"], answer: 0, explain: "Saur-." },
+      { q: "Il ___ ses devoirs. (faire)", options: ["fait", "fera", "ferait", "ferra"], answer: 1, explain: "Fer-." },
+      { q: "Nous ___ ce projet. (terminer)", options: ["terminerons", "terminons", "terminions", "terminerions"], answer: 0, explain: "Terminer + -ons." }
+    ]
+  },
+  {
+    id: "b1_conditionnel", level: "B1", title: "Conditionnel présent",
+    nl: "**Futur-stam + imparfait-uitgangen** (-ais, -ais, -ait, -ions, -iez, -aient). Gebruik: beleefdheid ('Je voudrais...'), hypothese (si + imparfait → conditionnel), verzachte aanbeveling, indirecte futur.",
+    exercises: [
+      { q: "Je ___ un café, s'il vous plaît. (vouloir)", options: ["veux", "voudrais", "voudrai", "voulais"], answer: 1, explain: "Beleefdheid." },
+      { q: "Si j'avais de l'argent, je ___ une maison. (acheter)", options: ["achète", "achèterais", "achèterai", "achetais"], answer: 1, explain: "Si + imparfait → cond." },
+      { q: "Tu ___ m'aider? (pouvoir)", options: ["peux", "pourras", "pouvais", "pourrais"], answer: 3, explain: "Beleefde vraag." },
+      { q: "Nous ___ partir maintenant. (devoir)", options: ["devons", "devrions", "devrons", "devraient"], answer: 1, explain: "Aanbeveling." },
+      { q: "À sa place, je ___ différemment. (agir)", options: ["agis", "agirai", "agirais", "agissais"], answer: 2, explain: "Hypothetisch." },
+      { q: "Il a dit qu'il ___ demain. (venir)", options: ["viendra", "viendrait", "vient", "viendraient"], answer: 1, explain: "Indirect futur → conditionnel." }
+    ]
+  },
+  {
+    id: "b1_subjonctif", level: "B1", title: "Subjonctif présent",
+    nl: "Stam = ils-vorm zonder -ent + **-e, -es, -e, -ions, -iez, -ent**. Nous/vous = imparfait-stam. Onregelmatig: être (sois/soyons), avoir (aie/ayons), aller (aille/allions), faire (fasse), pouvoir (puisse), savoir (sache), vouloir (veuille). Na: il faut que, je veux que, bien que, pour que, avant que, à moins que, sans que, qu'il fasse, twijfel (douter que), emotie (être content que).",
+    exercises: [
+      { q: "Il faut que tu ___. (venir)", options: ["viens", "viennes", "venir", "vienne"], answer: 1, explain: "Subj tu: viennes." },
+      { q: "Je veux que vous ___ heureux. (être)", options: ["êtes", "soyez", "soient", "seriez"], answer: 1, explain: "Soyez." },
+      { q: "Bien qu'il ___ fatigué, il continue. (être)", options: ["est", "soit", "était", "serait"], answer: 1, explain: "Bien que + subj." },
+      { q: "Il est important que nous ___ tôt. (partir)", options: ["partons", "partions", "partirons", "partirions"], answer: 1, explain: "Subj nous: partions." },
+      { q: "Je doute qu'elle ___ raison. (avoir)", options: ["a", "aie", "ait", "avait"], answer: 2, explain: "Avoir subj 3s = ait." },
+      { q: "Pour que tu ___ comprendre, je vais répéter. (pouvoir)", options: ["peux", "puisses", "puis", "pourrais"], answer: 1, explain: "Pouvoir subj tu = puisses." },
+      { q: "Avant qu'il ne ___, partons! (faire)", options: ["fasse", "fait", "fera", "ferait"], answer: 0, explain: "Avant que + subj; faire subj = fasse." },
+      { q: "Je suis content que vous ___. (venir)", options: ["venez", "veniez", "viendrez", "viennes"], answer: 1, explain: "Subj vous: veniez." }
+    ]
+  },
+  {
+    id: "b1_relatifs", level: "B1", title: "Relatifs: qui, que, dont, où",
+    nl: "**Qui** = onderwerp. **Que** = LV. **Dont** = met 'de' (parler de, avoir besoin de, possessie). **Où** = plaats of tijd ('Le jour où...'). Na que: accord PV met voorafgaand LV.",
+    exercises: [
+      { q: "Le film ___ j'ai vu était excellent.", options: ["qui", "que", "dont", "où"], answer: 1, explain: "LV → que." },
+      { q: "C'est l'homme ___ habite à côté.", options: ["qui", "que", "dont", "où"], answer: 0, explain: "Onderwerp → qui." },
+      { q: "Voici le livre ___ je t'ai parlé.", options: ["qui", "que", "dont", "où"], answer: 2, explain: "Parler de → dont." },
+      { q: "C'est la ville ___ je suis née.", options: ["qui", "que", "dont", "où"], answer: 3, explain: "Plaats → où." },
+      { q: "L'année ___ j'ai déménagé était 2020.", options: ["qui", "que", "dont", "où"], answer: 3, explain: "Tijd → où." },
+      { q: "L'auteur ___ les romans sont célèbres...", options: ["qui", "que", "dont", "où"], answer: 2, explain: "Possessie → dont." },
+      { q: "La femme ___ tu as rencontrée hier...", options: ["qui", "que", "dont", "qu'"], answer: 3, explain: "LV + klinker → qu'." },
+      { q: "Le problème ___ nous discutons est complexe.", options: ["qui", "que", "dont", "duquel"], answer: 2, explain: "Discuter de → dont." }
+    ]
+  },
+  {
+    id: "b1_accord_pp", level: "B1", title: "Accord du participe passé",
+    nl: "(1) Met **être**: accord met onderwerp. (2) Met **avoir**: accord met voorafgaand LV. (3) **Pronominaux**: meestal als être (accord met onderwerp), maar bij reflexief COI géén accord ('Elle s'est lavé les mains' — mains = COD, na PV).",
+    exercises: [
+      { q: "Les pommes que j'ai ___. (manger)", options: ["mangé", "mangée", "mangées", "mangés"], answer: 2, explain: "Voorafg LV (les pommes v mv) → -ées." },
+      { q: "Elle s'est ___ les mains. (laver)", options: ["lavé", "lavée", "lavées", "lavés"], answer: 0, explain: "LV (les mains) staat erna → géén accord." },
+      { q: "Elle s'est ___ tôt. (lever)", options: ["levé", "levée", "levées", "levés"], answer: 1, explain: "Reflexief → accord met elle." },
+      { q: "Les lettres sont ___ hier. (arriver)", options: ["arrivé", "arrivée", "arrivés", "arrivées"], answer: 3, explain: "Être + v mv → -ées." },
+      { q: "Quels films as-tu ___? (voir)", options: ["vu", "vus", "vue", "vues"], answer: 1, explain: "LV m mv vóór → -us." },
+      { q: "Marie est ___ à Paris. (aller)", options: ["allé", "allée", "allés", "allées"], answer: 1, explain: "Être + v s." }
+    ]
+  },
+  {
+    id: "b1_cause", level: "B1", title: "Expression de la cause",
+    nl: "**Parce que** (neutraal), **car** (schrijftaal), **comme** (begin zin), **puisque** (gedeelde kennis), **étant donné que / vu que** (formeel), **grâce à** (positief + nw), **à cause de** (negatief + nw), **en raison de** (formeel + nw).",
+    exercises: [
+      { q: "___ il pleut, restons à la maison.", options: ["Parce que", "Comme", "Car", "À cause de"], answer: 1, explain: "Begin zin → comme." },
+      { q: "Il est arrivé en retard ___ le trafic.", options: ["parce que", "à cause de", "grâce à", "puisque"], answer: 1, explain: "Negatief + nw → à cause de." },
+      { q: "Elle a réussi ___ son travail.", options: ["à cause de", "grâce à", "car", "comme"], answer: 1, explain: "Positief → grâce à." },
+      { q: "___ tu le sais déjà, je n'expliquerai pas.", options: ["Parce que", "Puisque", "Car", "Étant donné"], answer: 1, explain: "Gedeelde kennis → puisque." },
+      { q: "Le vol est annulé ___ mauvais temps.", options: ["car", "parce que", "en raison du", "comme"], answer: 2, explain: "Formeel + nw → en raison de." }
+    ]
+  },
+  {
+    id: "b1_gerondif", level: "B1", title: "Gérondif (en + -ant)",
+    nl: "**En + stam nous + -ant**. Drukt gelijktijdigheid, manier of conditie uit. Onderwerp = onderwerp hoofdzin. Onregelmatig: étant, ayant, sachant.",
+    exercises: [
+      { q: "Il chante ___ son bain. (prendre)", options: ["en prendant", "en prenant", "prenant", "en pris"], answer: 1, explain: "Nous prenons → prenant." },
+      { q: "___, tu apprendras vite. (étudier)", options: ["Étudier", "En étudiant", "Étudiant", "Étudie"], answer: 1, explain: "Conditie → en + -ant." },
+      { q: "Elle est tombée ___ . (courir)", options: ["en courant", "courrant", "en couru", "courant"], answer: 0, explain: "Courant." },
+      { q: "___ beaucoup, il a réussi. (travailler)", options: ["Travaillant", "En travaillant", "Travaillé", "Travailler"], answer: 1, explain: "Manier." }
+    ]
+  },
+  {
+    id: "b1_yen", level: "B1", title: "Pronoms Y et EN",
+    nl: "**Y** = 'à + plaats/ding'. **EN** = 'de + ...' (hoeveelheid, parler de, avoir besoin de). Volgorde: me/te/se/nous/vous → le/la/les → lui/leur → **y** → **en** → ww.",
+    exercises: [
+      { q: "Tu vas à Paris? Oui, j'___ vais.", options: ["y", "en", "lui", "le"], answer: 0, explain: "À + plaats → y." },
+      { q: "Tu as des amis? Oui, j'___ ai.", options: ["y", "en", "les", "leur"], answer: 1, explain: "Hoeveelheid → en." },
+      { q: "Combien de livres as-tu? J'___ ai cinq.", options: ["y", "en", "les", "des"], answer: 1, explain: "En + cijfer." },
+      { q: "Tu penses à ton examen? Oui, j'___ pense.", options: ["y", "en", "lui", "le"], answer: 0, explain: "Penser à + ding → y." },
+      { q: "Tu as besoin de ce livre? Oui, j'___ ai besoin.", options: ["y", "en", "le", "lui"], answer: 1, explain: "Avoir besoin de → en." },
+      { q: "Tu lui as parlé de ça? Oui, je lui ___ ai parlé.", options: ["y", "en", "le", "la"], answer: 1, explain: "Parler de → en." }
+    ]
+  },
+  {
+    id: "b1_discours", level: "B1", title: "Discours indirect (présent)",
+    nl: "'Je suis fatigué' → 'Il dit qu'il est fatigué'. Oui/non-vragen → 'si'. Que → 'ce que'. Qu'est-ce qui → 'ce qui'. Imperatief → 'de + infinitif'.",
+    exercises: [
+      { q: "'Je suis content' → Il dit ___ content.", options: ["que je suis", "qu'il est", "qu'il soit", "que est"], answer: 1, explain: "1e p → 3e p." },
+      { q: "'Tu viens?' → Elle demande ___ je viens.", options: ["que", "si", "ce que", "qu'est-ce que"], answer: 1, explain: "Oui/non → si." },
+      { q: "'Qu'est-ce que tu fais?' → Il demande ___ je fais.", options: ["qu'est-ce que", "ce que", "que", "ce qui"], answer: 1, explain: "Qu'est-ce que → ce que." },
+      { q: "'Qu'est-ce qui se passe?' → Il demande ___ se passe.", options: ["qu'est-ce qui", "ce qui", "ce que", "que"], answer: 1, explain: "Qu'est-ce qui → ce qui." },
+      { q: "'Où vas-tu?' → Elle me demande ___ je vais.", options: ["si", "où", "que", "ce que"], answer: 1, explain: "Où blijft." },
+      { q: "'Viens!' → Il me dit ___ venir.", options: ["que", "de", "à", "que je"], answer: 1, explain: "Imperatief → de + inf." }
+    ]
+  },
+
+  // ============ B2 ============
+  {
+    id: "b2_pqp", level: "B2", title: "Plus-que-parfait",
+    nl: "**Avoir/être imparfait + PP**. Verleden vóór ander verleden: 'Quand je suis arrivé, il était déjà parti'. Ook in hypothese: 'Si j'avais su, je serais venu'.",
+    exercises: [
+      { q: "Quand nous sommes arrivés, il ___ déjà. (partir)", options: ["partait", "était parti", "est parti", "partirait"], answer: 1, explain: "Verleden vóór verleden." },
+      { q: "Si tu ___, tu aurais compris. (écouter)", options: ["écoutais", "avais écouté", "as écouté", "écouterais"], answer: 1, explain: "Si + pqp." },
+      { q: "Elle a dit qu'elle ___ ce livre. (lire)", options: ["lit", "lisait", "a lu", "avait lu"], answer: 3, explain: "Indirect → pqp." },
+      { q: "J'étais fatigué parce que je ___ peu. (dormir)", options: ["ai dormi", "avais dormi", "dormais", "dormirais"], answer: 1, explain: "Reden eerder." },
+      { q: "Quand il m'a appelé, j'___ déjà mon manteau. (mettre)", options: ["mettais", "avais mis", "ai mis", "mettrais"], answer: 1, explain: "Pqp." }
+    ]
+  },
+  {
+    id: "b2_cond_passe", level: "B2", title: "Conditionnel passé",
+    nl: "**Avoir/être conditionnel + PP**. Onvervulde wens, verwijt ('Tu aurais dû...'), niet-gerealiseerde hypothese (si + pqp → cond passé).",
+    exercises: [
+      { q: "Je ___ venir, mais j'étais malade. (aimer)", options: ["aime", "aimerais", "aurais aimé", "ai aimé"], answer: 2, explain: "Onvervulde wens." },
+      { q: "Tu ___ me prévenir! (devoir)", options: ["devais", "devrais", "aurais dû", "avais dû"], answer: 2, explain: "Verwijt." },
+      { q: "Si tu étais venu, on ___ ensemble. (manger)", options: ["mangerait", "aurait mangé", "avait mangé", "mangeait"], answer: 1, explain: "Niet-gerealiseerd." },
+      { q: "Elle ___ être en retard sans la circulation. (ne pas pouvoir)", options: ["ne pouvait pas", "ne pourrait pas", "n'aurait pas pu", "n'avait pas pu"], answer: 2, explain: "Cond passé." },
+      { q: "Nous ___ partir plus tôt. (pouvoir)", options: ["pouvons", "pourrions", "aurions pu", "avions pu"], answer: 2, explain: "Gemiste mogelijkheid." }
+    ]
+  },
+  {
+    id: "b2_subj_passe", level: "B2", title: "Subjonctif passé",
+    nl: "**Avoir/être subjonctif + PP**. Actie vóór hoofdactie: 'Je suis content qu'il soit venu' (hij is al gekomen).",
+    exercises: [
+      { q: "Je suis content que tu ___. (venir)", options: ["viens", "sois venu", "es venu", "venais"], answer: 1, explain: "Subj passé." },
+      { q: "Bien qu'elle ___, elle est fatiguée. (bien dormir)", options: ["dorme bien", "ait bien dormi", "a bien dormi", "dormait"], answer: 1, explain: "Eerder afgerond." },
+      { q: "Il faut qu'il ___ avant midi. (finir)", options: ["finit", "finisse", "ait fini", "finira"], answer: 2, explain: "Voltooid voor middag." },
+      { q: "Je doute qu'ils ___ la vérité. (dire)", options: ["disent", "aient dit", "ont dit", "disaient"], answer: 1, explain: "Twijfel + eerder." }
+    ]
+  },
+  {
+    id: "b2_relatifs_composes", level: "B2", title: "Relatifs composés (lequel...)",
+    nl: "**Lequel, laquelle, lesquels, lesquelles** na voorzetsel. Met à: **auquel, à laquelle, auxquels, auxquelles**. Met de: **duquel, de laquelle, desquels, desquelles** (na samengestelde voorzetsels: à côté de, près de).",
+    exercises: [
+      { q: "C'est le projet ___ je travaille.", options: ["que", "lequel", "auquel", "duquel"], answer: 2, explain: "Travailler à → auquel." },
+      { q: "Voici les amis avec ___ je voyage.", options: ["qui", "lesquels", "que", "auxquels"], answer: 1, explain: "Avec + lesquels." },
+      { q: "La maison à côté de ___ j'habite.", options: ["lequel", "laquelle", "duquel", "de laquelle"], answer: 3, explain: "À côté de + v.s. → de laquelle." },
+      { q: "Les raisons pour ___ il est parti.", options: ["lesquelles", "lesquels", "qui", "que"], answer: 0, explain: "Raisons v mv." },
+      { q: "L'objectif ___ nous tendons.", options: ["que", "auquel", "duquel", "à lequel"], answer: 1, explain: "Tendre à → auquel." }
+    ]
+  },
+  {
+    id: "b2_passif", level: "B2", title: "Voix passive",
+    nl: "**Être (juiste tijd) + PP + par/de + agent**. PP congrueert met onderwerp. **De** voor emotie/toestand (aimé de). Onpersoonlijk: 'Il est dit que...'.",
+    exercises: [
+      { q: "Cette maison ___ par mon grand-père en 1950. (construire)", options: ["a construit", "était construit", "a été construite", "est construite"], answer: 2, explain: "PC passief + accord v." },
+      { q: "Les enfants ___ par leur mère. (aimer)", options: ["sont aimés", "sont aimées", "sont aimé", "ont aimé"], answer: 0, explain: "Présent passief + m mv." },
+      { q: "Le président est respecté ___ tous.", options: ["par", "de", "avec", "pour"], answer: 1, explain: "Emotie → de." },
+      { q: "Cette décision ___ demain. (prendre)", options: ["est prise", "sera prise", "a été prise", "était prise"], answer: 1, explain: "Futur passief." },
+      { q: "Il ___ que la situation est grave. (dire)", options: ["dit", "est dit", "a dit", "était dit"], answer: 1, explain: "Onpersoonlijk." }
+    ]
+  },
+  {
+    id: "b2_but", level: "B2", title: "Expression du but",
+    nl: "**Pour que / afin que + subj** (verschillende onderwerpen). **Pour / afin de + inf** (zelfde onderwerp). **De peur que / de crainte que + subj + ne explétif**. Formeel: en vue de, dans le but de.",
+    exercises: [
+      { q: "Je travaille dur ___ réussir.", options: ["pour que", "pour", "afin que", "de peur que"], answer: 1, explain: "Zelfde onderw → pour + inf." },
+      { q: "Je t'aide ___ tu finisses à temps.", options: ["pour", "afin", "pour que", "de peur"], answer: 2, explain: "Verschillend → pour que + subj." },
+      { q: "Il se cache ___ on ___ le voie.", options: ["pour / ne", "de peur qu' / ne", "pour qu' / pas", "afin que / -"], answer: 1, explain: "Vrees → de peur que + ne expl." },
+      { q: "Elle étudie ___ devenir médecin.", options: ["afin de", "afin que", "pour que", "de crainte de"], answer: 0, explain: "Afin de + inf." },
+      { q: "Il faut agir ___ il ne ___ trop tard.", options: ["pour qu' / soit", "avant qu' / soit", "afin qu' / est", "pour que / est"], answer: 1, explain: "Avant que + subj." }
+    ]
+  },
+  {
+    id: "b2_consequence", level: "B2", title: "Conséquence",
+    nl: "**Si...que / tant...que / tellement...que** ('Il est si fatigué qu'il s'endort'). Met nw: tant/tellement **de** + nw + que. **Donc, alors, par conséquent, ainsi, c'est pourquoi**. Formeel: de sorte que / si bien que + indic.",
+    exercises: [
+      { q: "Il pleut beaucoup, ___ je reste à la maison.", options: ["donc", "parce que", "si bien que", "pour que"], answer: 0, explain: "Donc." },
+      { q: "Elle est ___ intelligente qu'elle a tout compris.", options: ["très", "si", "beaucoup", "trop"], answer: 1, explain: "Si...que." },
+      { q: "Il a ___ d'amis qu'il ne s'ennuie jamais.", options: ["si", "très", "tellement", "tant"], answer: 3, explain: "Tant de + nw." },
+      { q: "La route était bloquée, ___ nous sommes rentrés.", options: ["c'est pourquoi", "parce que", "pour que", "bien que"], answer: 0, explain: "C'est pourquoi." },
+      { q: "Il parle vite, de sorte qu'on ne le ___ pas.", options: ["comprend", "comprenne", "comprendre", "compris"], answer: 0, explain: "De sorte que + indic (gevolg)." }
+    ]
+  },
+  {
+    id: "b2_concession", level: "B2", title: "Concession & opposition",
+    nl: "**Concession**: bien que/quoique + subj, malgré + nw, même si + indic. **Opposition**: mais, cependant, pourtant, en revanche, par contre, tandis que / alors que + indic, au lieu de + inf, contrairement à + nw.",
+    exercises: [
+      { q: "___ il pleuve, je sors.", options: ["Malgré", "Bien que", "Même si", "Au lieu de"], answer: 1, explain: "Bien que + subj." },
+      { q: "___ la pluie, je sors.", options: ["Malgré", "Bien que", "Pourtant", "Tandis que"], answer: 0, explain: "Malgré + nw." },
+      { q: "Il est riche, ___ il vit simplement.", options: ["alors que", "pourtant", "donc", "parce que"], answer: 1, explain: "Pourtant." },
+      { q: "___ son frère, il est très calme.", options: ["Tandis que", "Au lieu de", "Contrairement à", "Bien que"], answer: 2, explain: "Contrairement à + nw." },
+      { q: "Elle travaille, ___ son frère reste à la maison.", options: ["mais", "alors que", "bien que", "pourtant"], answer: 1, explain: "Alors que (twee feiten)." }
+    ]
+  },
+  {
+    id: "b2_hypothese", level: "B2", title: "Hypothèse avec SI",
+    nl: "Type 1: **si + présent → présent/futur/impératif** (realistisch). Type 2: **si + imparfait → conditionnel présent** (hypothetisch in heden). Type 3: **si + plus-que-parfait → conditionnel passé** (onvervuld verleden). **NOOIT** cond/futur na 'si'!",
+    exercises: [
+      { q: "Si tu ___, je serai content. (venir)", options: ["viens", "venais", "viendrais", "viendras"], answer: 0, explain: "Type 1." },
+      { q: "Si j'avais de l'argent, j'___ une maison. (acheter)", options: ["achète", "achetais", "achèterais", "aurais acheté"], answer: 2, explain: "Type 2." },
+      { q: "Si tu m'avais appelé, je ___. (venir)", options: ["viens", "venais", "viendrais", "serais venu"], answer: 3, explain: "Type 3." },
+      { q: "Si elle ___, elle réussirait. (étudier)", options: ["étudie", "étudiait", "étudierait", "avait étudié"], answer: 1, explain: "Type 2." },
+      { q: "Si vous ___ tôt, vous auriez vu le coucher. (arriver)", options: ["arriviez", "êtes arrivés", "étiez arrivés", "arriveriez"], answer: 2, explain: "Type 3." }
+    ]
+  },
+  {
+    id: "b2_participe_present", level: "B2", title: "Participe présent",
+    nl: "Stam nous + **-ant**. Onveranderlijk. Vervangt 'qui'-bijzin. **Adjectif verbal** congrueert wel ('une fille charmante') terwijl PP onveranderlijk is ('charmant ses invités').",
+    exercises: [
+      { q: "Les personnes ___ une voiture doivent payer. (avoir)", options: ["avoir", "ayant", "ont", "ayants"], answer: 1, explain: "Ayant." },
+      { q: "___ malade, il est resté chez lui. (être)", options: ["Étant", "Étants", "Est", "Étante"], answer: 0, explain: "Onveranderlijk." },
+      { q: "Une histoire ___. (charmer, adj)", options: ["charmant", "charmante", "charmants", "charmantes"], answer: 1, explain: "Adj → akkoord." },
+      { q: "Elle entra, ___ un livre à la main. (tenir)", options: ["tenue", "tenant", "tenu", "tenait"], answer: 1, explain: "PP." }
+    ]
+  },
+  {
+    id: "b2_discours_passe", level: "B2", title: "Discours indirect au passé",
+    nl: "Tijdverschuiving: présent→imparfait, PC→pqp, futur→cond. Bijwoorden: aujourd'hui→ce jour-là, hier→la veille, demain→le lendemain, maintenant→à ce moment-là, ici→là.",
+    exercises: [
+      { q: "'Je viendrai demain.' → Il a dit qu'il ___ le lendemain.", options: ["vient", "viendra", "viendrait", "venait"], answer: 2, explain: "Futur → cond." },
+      { q: "'J'ai fini hier.' → Elle a dit qu'elle ___ la veille.", options: ["a fini", "avait fini", "finissait", "finirait"], answer: 1, explain: "PC → pqp." },
+      { q: "'Je suis fatigué aujourd'hui.' → Il a dit qu'il était fatigué ___.", options: ["aujourd'hui", "ce jour-là", "ce matin-là", "alors"], answer: 1, explain: "Aujourd'hui → ce jour-là." },
+      { q: "'Je travaille maintenant.' → Il a dit qu'il travaillait ___.", options: ["maintenant", "à ce moment-là", "alors", "tout de suite"], answer: 1, explain: "Maintenant → à ce moment-là." }
+    ]
+  },
+
+  // ============ C1 ============
+  {
+    id: "c1_subj_imparfait", level: "C1", title: "Subjonctif imparfait (reconnaissance)",
+    nl: "Literair/zeer formeel. Op basis van passé simple. Modern vervangen door subj présent. Voor C1 vooral hérkennen, niet zelf produceren. Voorbeelden: qu'il fût, qu'il vînt, qu'il parlât.",
+    exercises: [
+      { q: "Welke is subjonctif imparfait?", options: ["qu'il vienne", "qu'il vînt", "qu'il viendrait", "qu'il venait"], answer: 1, explain: "Vînt." },
+      { q: "Welke is subjonctif imparfait?", options: ["qu'il fût", "qu'il fut", "qu'il soit", "qu'il était"], answer: 0, explain: "Fût (^t)." },
+      { q: "Modern equivalent van 'qu'il parlât'?", options: ["qu'il parle", "qu'il parlait", "qu'il parlerait", "qu'il a parlé"], answer: 0, explain: "Subj présent." }
+    ]
+  },
+  {
+    id: "c1_inversion", level: "C1", title: "Inversion stylistique",
+    nl: "Bij bepaalde bijwoorden vooraan: **peut-être, aussi (=dus), à peine, sans doute, du moins, encore, ainsi** → inversie van onderwerp. 'Peut-être viendra-t-il.' 'À peine était-il sorti que...'.",
+    exercises: [
+      { q: "'Il viendra peut-être.' → formeel:", options: ["Peut-être il viendra", "Peut-être qu'il viendra", "Peut-être viendra-t-il", "Viendra-t-il peut-être"], answer: 2, explain: "Inversie." },
+      { q: "À peine ___ qu'elle est partie.", options: ["elle est arrivée", "est-elle arrivée", "arrivait-elle", "arrivée"], answer: 1, explain: "À peine + inversie." },
+      { q: "Ainsi ___-il sa décision. (prendre)", options: ["prend", "a-il pris", "prend-il", "prennait"], answer: 2, explain: "Ainsi + inversie." },
+      { q: "Sans doute ___ raison.", options: ["a-t-il", "il a", "il a-t-il", "a-il"], answer: 0, explain: "Sans doute + inversie + t euphonique." }
+    ]
+  },
+  {
+    id: "c1_connecteurs", level: "C1", title: "Connecteurs avancés",
+    nl: "**Cause**: étant donné que, du fait que, sous prétexte que. **Conséquence**: si bien que, de sorte que. **Concession**: quoique, encore que, quand bien même. **Addition**: en outre, par ailleurs, qui plus est, de surcroît. **Opposition**: en revanche, à l'inverse. **Besluit**: en somme, en définitive, force est de constater que.",
+    exercises: [
+      { q: "Formeel voor 'ondanks alles is hij geslaagd':", options: ["mais", "or", "en dépit de tout, il a réussi", "donc"], answer: 2, explain: "En dépit de + nw." },
+      { q: "Formeel voor 'bovendien':", options: ["Aussi", "En outre", "Mais", "Pourtant"], answer: 1, explain: "En outre." },
+      { q: "Sterke conclusie:", options: ["donc", "alors", "force est de constater que", "puis"], answer: 2, explain: "Sterk besluit." },
+      { q: "Formele opposition:", options: ["mais", "à l'inverse", "donc", "et"], answer: 1, explain: "À l'inverse." },
+      { q: "Sterke concession:", options: ["et", "quand bien même", "puis", "donc"], answer: 1, explain: "Quand bien même + cond." }
+    ]
+  },
+  {
+    id: "c1_nominalisation", level: "C1", title: "Nominalisation",
+    nl: "Werkwoord → zelfst.nw voor compacte stijl. **-tion/-sion**: construire→construction. **-ment**: changer→changement. **-age**: passer→passage. **-ée**: arriver→arrivée. **-té/-ité**: actif→activité. Onmisbaar voor synthèses.",
+    exercises: [
+      { q: "Nominaliseer 'construire':", options: ["construit", "construction", "constructement", "construire"], answer: 1, explain: "-tion." },
+      { q: "Nominaliseer 'développer':", options: ["développement", "développation", "développée", "développé"], answer: 0, explain: "-ment." },
+      { q: "Nominaliseer 'arriver':", options: ["arrivement", "arrivation", "arrivée", "arrivage"], answer: 2, explain: "-ée." },
+      { q: "Nominaliseer 'actif':", options: ["actiment", "actité", "activité", "action"], answer: 2, explain: "-ité." },
+      { q: "Nominaliseer 'choisir':", options: ["choisissement", "choix", "choisition", "choisure"], answer: 1, explain: "Onregelmatig: choix." },
+      { q: "Nominaliseer 'augmenter':", options: ["augmentement", "augmentation", "augmente", "augmenté"], answer: 1, explain: "-tion." }
+    ]
+  },
+  {
+    id: "c1_mise_relief", level: "C1", title: "Mise en relief",
+    nl: "**C'est...qui** (benadrukt onderwerp): 'C'est Marie qui...'. **C'est...que** (rest): 'C'est ce livre que...'. **Ce qui..., c'est** / **Ce que..., c'est**: 'Ce que j'aime, c'est la liberté.' Met pronouns: c'est moi/toi/lui/elle/nous/vous/eux/elles.",
+    exercises: [
+      { q: "Benadruk 'Marie' in 'Marie chante bien.':", options: ["C'est Marie que chante bien.", "C'est Marie qui chante bien.", "C'est Marie chante bien.", "Marie c'est qui chante"], answer: 1, explain: "Onderw → qui." },
+      { q: "Benadruk 'ce livre' in 'Je préfère ce livre.':", options: ["C'est ce livre qui je préfère.", "C'est ce livre que je préfère.", "Ce livre que je préfère.", "Je c'est préfère ce livre."], answer: 1, explain: "LV → que." },
+      { q: "Benadruk: 'J'aime la liberté.' → '___, c'est la liberté.'", options: ["Ce qui j'aime", "Ce que j'aime", "Que j'aime", "Qui j'aime"], answer: 1, explain: "LV → ce que." },
+      { q: "'C'est ___ qui ai raison.'", options: ["moi", "je", "j'", "me"], answer: 0, explain: "Moi." }
+    ]
+  },
+  {
+    id: "c1_articulateurs", level: "C1", title: "Articulateurs argumentatifs",
+    nl: "**Introduire**: tout d'abord, en premier lieu. **Ajouter**: de plus, en outre, par ailleurs, qui plus est. **Exemplifier**: à titre d'exemple, notamment, en l'occurrence. **Nuancer**: certes...mais, il est vrai que...néanmoins. **Conclure**: en définitive, en somme, tout compte fait, force est de constater que.",
+    exercises: [
+      { q: "Meest formele om mee te beginnen:", options: ["pour commencer", "d'abord", "en premier lieu", "premièrement"], answer: 2, explain: "Zeer formeel." },
+      { q: "Voor concessie + tegenstelling:", options: ["certes...mais", "donc...alors", "puis...ensuite", "et...et"], answer: 0, explain: "Certes...mais." },
+      { q: "Formele afsluiting:", options: ["enfin", "et puis", "en définitive", "voilà"], answer: 2, explain: "En définitive." },
+      { q: "Toevoegen formeel:", options: ["aussi", "qui plus est", "et", "et aussi"], answer: 1, explain: "Qui plus est." },
+      { q: "Voorbeeld geven:", options: ["notamment", "donc", "pourtant", "ainsi"], answer: 0, explain: "Notamment." }
+    ]
+  },
+  {
+    id: "c1_registres", level: "C1", title: "Registres de langue",
+    nl: "**Familier**: bouquin, bagnole, bosser, fric, gosse. **Standard**: livre, voiture, travailler, argent, enfant. **Soutenu**: ouvrage, véhicule, œuvrer, fonds, progéniture. Voor schrijfexamen: vermijd familier.",
+    exercises: [
+      { q: "Soutenu voor 'travailler':", options: ["bosser", "trimer", "œuvrer", "taffer"], answer: 2, explain: "Œuvrer." },
+      { q: "Familier voor 'voiture':", options: ["véhicule", "automobile", "bagnole", "carrosse"], answer: 2, explain: "Bagnole." },
+      { q: "Soutenu voor 'livre':", options: ["bouquin", "livre", "ouvrage", "roman"], answer: 2, explain: "Ouvrage." },
+      { q: "Vermijd in schrijfexamen:", options: ["soutenu", "standard", "familier", "courant"], answer: 2, explain: "Familier." },
+      { q: "Soutenu voor 'argent':", options: ["fric", "thune", "fonds", "blé"], answer: 2, explain: "Fonds." }
+    ]
+  },
+  {
+    id: "c1_passe_simple", level: "C1", title: "Passé simple (reconnaissance)",
+    nl: "Tijd van historische/literaire verhalen. -er: -ai, -as, -a, -âmes, -âtes, -èrent. -ir/-re: -is, -is, -it, -îmes, -îtes, -irent. Onregelmatig: être (fus), avoir (eus), faire (fis), venir (vins), voir (vis).",
+    exercises: [
+      { q: "Welke is passé simple?", options: ["il parlait", "il parla", "il a parlé", "il parle"], answer: 1, explain: "Parla." },
+      { q: "'Il fut content' is:", options: ["passé composé", "imparfait", "passé simple", "subjonctif"], answer: 2, explain: "Fut = ps van être." },
+      { q: "Modern equivalent van 'Il vint hier':", options: ["Il vient hier", "Il venait hier", "Il est venu hier", "Il viendrait hier"], answer: 2, explain: "= passé composé." }
+    ]
+  }
+];
+
+// ============================================================
+// VOCAB — 12 themes C1
+// ============================================================
+const VOCAB = [
+  {
+    id: "v_societe", theme: "Société & citoyenneté", icon: "👥",
+    words: [
+      { fr: "le citoyen / la citoyenne", nl: "de burger", ex: "Chaque citoyen a des droits et des devoirs." },
+      { fr: "la cohésion sociale", nl: "sociale cohesie", ex: "La cohésion sociale est mise à l'épreuve." },
+      { fr: "le tissu social", nl: "het sociale weefsel", ex: "Le tissu social s'effrite dans les quartiers." },
+      { fr: "l'inclusion (f)", nl: "inclusie", ex: "L'inclusion des personnes handicapées progresse." },
+      { fr: "la marginalisation", nl: "marginalisering", ex: "La marginalisation des jeunes s'aggrave." },
+      { fr: "l'engagement (m)", nl: "betrokkenheid", ex: "Son engagement associatif est admirable." },
+      { fr: "les inégalités (f)", nl: "ongelijkheid", ex: "Les inégalités se creusent." },
+      { fr: "la précarité", nl: "onzekerheid", ex: "La précarité touche de plus en plus de familles." },
+      { fr: "le vivre-ensemble", nl: "samenleven", ex: "Le vivre-ensemble exige du respect mutuel." },
+      { fr: "la solidarité", nl: "solidariteit", ex: "La solidarité s'organise face à la crise." },
+      { fr: "le clivage", nl: "scheidslijn/kloof", ex: "Un clivage générationnel se dessine." },
+      { fr: "préconiser", nl: "aanbevelen", ex: "L'expert préconise une réforme profonde." },
+      { fr: "déplorer", nl: "betreuren", ex: "On déplore la montée de la violence." },
+      { fr: "œuvrer pour", nl: "zich inzetten voor", ex: "Elle œuvre pour les droits humains." },
+      { fr: "fragiliser", nl: "verzwakken", ex: "La crise fragilise les plus modestes." }
+    ]
+  },
+  {
+    id: "v_environnement", theme: "Environnement & écologie", icon: "🌱",
+    words: [
+      { fr: "le réchauffement climatique", nl: "klimaatopwarming", ex: "Le réchauffement climatique s'accélère." },
+      { fr: "l'empreinte carbone (f)", nl: "CO2-voetafdruk", ex: "Réduire son empreinte carbone est urgent." },
+      { fr: "la biodiversité", nl: "biodiversiteit", ex: "La biodiversité décline à un rythme alarmant." },
+      { fr: "les énergies renouvelables", nl: "hernieuwbare energie", ex: "Les énergies renouvelables se développent." },
+      { fr: "la transition écologique", nl: "ecologische transitie", ex: "La transition écologique requiert des investissements." },
+      { fr: "le développement durable", nl: "duurzame ontwikkeling", ex: "Le développement durable concilie économie et écologie." },
+      { fr: "l'épuisement des ressources", nl: "uitputting grondstoffen", ex: "L'épuisement des ressources nous menace." },
+      { fr: "la déforestation", nl: "ontbossing", ex: "La déforestation détruit des écosystèmes." },
+      { fr: "l'effet de serre", nl: "broeikaseffect", ex: "L'effet de serre est amplifié par les activités humaines." },
+      { fr: "préserver", nl: "beschermen", ex: "Il faut préserver nos océans." },
+      { fr: "la pollution atmosphérique", nl: "luchtvervuiling", ex: "La pollution atmosphérique tue prématurément." },
+      { fr: "écoresponsable", nl: "milieubewust", ex: "Adopter un mode de vie écoresponsable." },
+      { fr: "le gaspillage", nl: "verspilling", ex: "Le gaspillage alimentaire est inadmissible." },
+      { fr: "endiguer", nl: "indammen", ex: "Il faut endiguer la pollution." },
+      { fr: "la sobriété énergétique", nl: "energiebesparing", ex: "La sobriété énergétique devient une nécessité." }
+    ]
+  },
+  {
+    id: "v_techno", theme: "Technologie & numérique", icon: "💻",
+    words: [
+      { fr: "le numérique", nl: "het digitale", ex: "Le numérique transforme nos vies." },
+      { fr: "l'intelligence artificielle", nl: "kunstmatige intelligentie", ex: "L'IA bouleverse le marché du travail." },
+      { fr: "la fracture numérique", nl: "digitale kloof", ex: "La fracture numérique exclut les plus âgés." },
+      { fr: "les données personnelles", nl: "persoonsgegevens", ex: "Protéger ses données est essentiel." },
+      { fr: "le piratage", nl: "hacking", ex: "Le piratage informatique menace les entreprises." },
+      { fr: "la cybersécurité", nl: "cyberveiligheid", ex: "La cybersécurité devient stratégique." },
+      { fr: "l'algorithme (m)", nl: "algoritme", ex: "Les algorithmes influencent nos choix." },
+      { fr: "la désinformation", nl: "desinformatie", ex: "La désinformation se propage en ligne." },
+      { fr: "la dématérialisation", nl: "dematerialisatie", ex: "La dématérialisation des démarches accélère." },
+      { fr: "la dépendance numérique", nl: "digitale verslaving", ex: "La dépendance numérique inquiète les psychologues." },
+      { fr: "déconnecter", nl: "loskoppelen", ex: "Apprendre à se déconnecter est nécessaire." },
+      { fr: "l'illectronisme (m)", nl: "digitaal analfabetisme", ex: "L'illectronisme handicape une partie de la population." },
+      { fr: "les réseaux sociaux", nl: "sociale media", ex: "Les réseaux sociaux façonnent l'opinion." },
+      { fr: "la robotisation", nl: "robotisering", ex: "La robotisation transforme l'industrie." },
+      { fr: "obsolète", nl: "verouderd", ex: "Cette technologie est devenue obsolète." }
+    ]
+  },
+  {
+    id: "v_education", theme: "Éducation & formation", icon: "🎓",
+    words: [
+      { fr: "l'enseignement supérieur", nl: "hoger onderwijs", ex: "L'enseignement supérieur se démocratise." },
+      { fr: "le décrochage scolaire", nl: "schoolverlating", ex: "Lutter contre le décrochage scolaire." },
+      { fr: "l'illettrisme (m)", nl: "analfabetisme", ex: "L'illettrisme touche 2,5 millions de Français." },
+      { fr: "la formation continue", nl: "permanente educatie", ex: "La formation continue est devenue indispensable." },
+      { fr: "l'apprentissage (m)", nl: "leertraject", ex: "L'apprentissage facilite l'insertion professionnelle." },
+      { fr: "l'égalité des chances", nl: "kansgelijkheid", ex: "L'égalité des chances reste un idéal." },
+      { fr: "la méritocratie", nl: "meritocratie", ex: "La méritocratie est-elle un mythe?" },
+      { fr: "le cursus", nl: "studietraject", ex: "Son cursus est impressionnant." },
+      { fr: "le savoir-faire", nl: "vakkennis", ex: "Préserver le savoir-faire artisanal." },
+      { fr: "le diplôme", nl: "diploma", ex: "Le diplôme reste un sésame." },
+      { fr: "encadrer", nl: "begeleiden", ex: "Encadrer les étudiants est crucial." },
+      { fr: "l'épanouissement (m)", nl: "ontplooiing", ex: "L'école doit favoriser l'épanouissement." },
+      { fr: "la pédagogie", nl: "pedagogie", ex: "Renouveler la pédagogie." },
+      { fr: "élitiste", nl: "elitair", ex: "Un système trop élitiste exclut." },
+      { fr: "l'autodidacte (n)", nl: "autodidact", ex: "C'est un autodidacte talentueux." }
+    ]
+  },
+  {
+    id: "v_travail", theme: "Travail & emploi", icon: "💼",
+    words: [
+      { fr: "le marché du travail", nl: "arbeidsmarkt", ex: "Le marché du travail se tend." },
+      { fr: "le télétravail", nl: "thuiswerken", ex: "Le télétravail s'est généralisé." },
+      { fr: "la précarité de l'emploi", nl: "baanonzekerheid", ex: "La précarité fragilise les jeunes." },
+      { fr: "le chômage", nl: "werkloosheid", ex: "Le chômage des jeunes reste élevé." },
+      { fr: "la reconversion", nl: "omscholing", ex: "Sa reconversion professionnelle a réussi." },
+      { fr: "l'équilibre vie-travail", nl: "werk-privébalans", ex: "L'équilibre vie-travail est primordial." },
+      { fr: "le burn-out", nl: "burn-out", ex: "Le burn-out touche de plus en plus de cadres." },
+      { fr: "embaucher", nl: "aannemen", ex: "L'entreprise va embaucher 50 personnes." },
+      { fr: "licencier", nl: "ontslaan", ex: "Licencier reste un acte difficile." },
+      { fr: "la rémunération", nl: "vergoeding", ex: "La rémunération doit être juste." },
+      { fr: "les acquis sociaux", nl: "sociale verworvenheden", ex: "Préserver les acquis sociaux." },
+      { fr: "syndiqué(e)", nl: "lid vakbond", ex: "De moins en moins de salariés sont syndiqués." },
+      { fr: "l'entrepreneuriat (m)", nl: "ondernemerschap", ex: "L'entrepreneuriat séduit les jeunes." },
+      { fr: "qualifié(e)", nl: "gekwalificeerd", ex: "Les emplois qualifiés se raréfient." },
+      { fr: "la productivité", nl: "productiviteit", ex: "Augmenter la productivité sans précariser." }
+    ]
+  },
+  {
+    id: "v_culture", theme: "Culture & arts", icon: "🎨",
+    words: [
+      { fr: "le patrimoine", nl: "erfgoed", ex: "Le patrimoine culturel doit être protégé." },
+      { fr: "le rayonnement culturel", nl: "culturele uitstraling", ex: "Le rayonnement culturel de la France." },
+      { fr: "l'œuvre (f)", nl: "(kunst)werk", ex: "Cette œuvre marque son époque." },
+      { fr: "la démocratisation culturelle", nl: "culturele democratisering", ex: "La démocratisation culturelle progresse lentement." },
+      { fr: "le mécène", nl: "kunstbeschermer", ex: "Un mécène a financé l'exposition." },
+      { fr: "l'avant-garde (f)", nl: "avant-garde", ex: "Cet artiste est à l'avant-garde." },
+      { fr: "la création contemporaine", nl: "hedendaagse creatie", ex: "La création contemporaine bouscule les codes." },
+      { fr: "la diversité culturelle", nl: "culturele diversiteit", ex: "Préserver la diversité culturelle." },
+      { fr: "le métissage", nl: "vermenging", ex: "Le métissage enrichit la culture." },
+      { fr: "subventionner", nl: "subsidiëren", ex: "L'État subventionne les arts." },
+      { fr: "l'engouement (m)", nl: "geestdrift", ex: "L'engouement pour le théâtre se poursuit." },
+      { fr: "consacrer", nl: "erkennen", ex: "Cette distinction le consacre." },
+      { fr: "la portée", nl: "draagwijdte", ex: "Une œuvre d'une portée universelle." },
+      { fr: "saisissant(e)", nl: "indrukwekkend", ex: "Une mise en scène saisissante." },
+      { fr: "l'esthétique (f)", nl: "esthetiek", ex: "Son esthétique est singulière." }
+    ]
+  },
+  {
+    id: "v_sante", theme: "Santé & bien-être", icon: "🏥",
+    words: [
+      { fr: "le système de santé", nl: "gezondheidssysteem", ex: "Le système de santé est sous pression." },
+      { fr: "la prévention", nl: "preventie", ex: "La prévention reste la meilleure médecine." },
+      { fr: "l'espérance de vie", nl: "levensverwachting", ex: "L'espérance de vie a augmenté." },
+      { fr: "la santé mentale", nl: "geestelijke gezondheid", ex: "La santé mentale des jeunes inquiète." },
+      { fr: "la sédentarité", nl: "sedentair leven", ex: "La sédentarité nuit à la santé." },
+      { fr: "le bien-être", nl: "welzijn", ex: "Le bien-être au travail est essentiel." },
+      { fr: "guérir", nl: "genezen", ex: "Guérir prend du temps." },
+      { fr: "le surmenage", nl: "overwerk", ex: "Le surmenage cause des maladies." },
+      { fr: "l'accès aux soins", nl: "toegang tot zorg", ex: "L'accès aux soins est inégal." },
+      { fr: "le désert médical", nl: "medische woestijn", ex: "Les déserts médicaux s'étendent." },
+      { fr: "la médecine douce", nl: "alternatieve geneeskunde", ex: "La médecine douce séduit." },
+      { fr: "soulager", nl: "verlichten", ex: "Ce médicament soulage la douleur." },
+      { fr: "le diagnostic", nl: "diagnose", ex: "Un diagnostic précoce est crucial." },
+      { fr: "chronique", nl: "chronisch", ex: "Une maladie chronique invalidante." },
+      { fr: "la pandémie", nl: "pandemie", ex: "La pandémie a tout bouleversé." }
+    ]
+  },
+  {
+    id: "v_medias", theme: "Médias & information", icon: "📰",
+    words: [
+      { fr: "la presse écrite", nl: "geschreven pers", ex: "La presse écrite est en crise." },
+      { fr: "l'information (f)", nl: "informatie", ex: "L'information de qualité a un coût." },
+      { fr: "les fausses nouvelles", nl: "nepnieuws", ex: "Les fausses nouvelles polluent le débat." },
+      { fr: "la liberté de la presse", nl: "persvrijheid", ex: "La liberté de la presse recule." },
+      { fr: "le quatrième pouvoir", nl: "vierde macht", ex: "Les médias, ce quatrième pouvoir." },
+      { fr: "l'objectivité (f)", nl: "objectiviteit", ex: "L'objectivité totale est une illusion." },
+      { fr: "la couverture médiatique", nl: "mediadekking", ex: "La couverture médiatique de l'événement." },
+      { fr: "le journaliste d'investigation", nl: "onderzoeksjournalist", ex: "Les journalistes d'investigation prennent des risques." },
+      { fr: "manipuler l'opinion", nl: "opinie manipuleren", ex: "Manipuler l'opinion via la désinformation." },
+      { fr: "la chambre d'écho", nl: "echo-kamer", ex: "Les réseaux créent des chambres d'écho." },
+      { fr: "le pluralisme", nl: "pluralisme", ex: "Le pluralisme est garant de démocratie." },
+      { fr: "censurer", nl: "censureren", ex: "Censurer un journaliste est inacceptable." },
+      { fr: "le sensationnalisme", nl: "sensatiezucht", ex: "Le sensationnalisme nuit à l'info." },
+      { fr: "l'audience (f)", nl: "publiek", ex: "Capter l'audience à tout prix." },
+      { fr: "déontologique", nl: "beroepsethisch", ex: "Le code déontologique du journaliste." }
+    ]
+  },
+  {
+    id: "v_economie", theme: "Économie & finance", icon: "💶",
+    words: [
+      { fr: "la croissance", nl: "groei", ex: "La croissance économique ralentit." },
+      { fr: "la récession", nl: "recessie", ex: "Le pays entre en récession." },
+      { fr: "le pouvoir d'achat", nl: "koopkracht", ex: "Le pouvoir d'achat baisse." },
+      { fr: "l'inflation (f)", nl: "inflatie", ex: "L'inflation érode les économies." },
+      { fr: "la dette publique", nl: "staatsschuld", ex: "La dette publique explose." },
+      { fr: "le déficit", nl: "tekort", ex: "Réduire le déficit budgétaire." },
+      { fr: "la mondialisation", nl: "globalisering", ex: "La mondialisation a redessiné l'économie." },
+      { fr: "la délocalisation", nl: "verplaatsing", ex: "La délocalisation détruit des emplois." },
+      { fr: "investir", nl: "investeren", ex: "Investir dans l'avenir." },
+      { fr: "la consommation", nl: "consumptie", ex: "La consommation des ménages stagne." },
+      { fr: "rentable", nl: "rendabel", ex: "Cette activité est-elle rentable?" },
+      { fr: "spéculer", nl: "speculeren", ex: "Spéculer sur les matières premières." },
+      { fr: "les classes moyennes", nl: "middenklassen", ex: "Les classes moyennes se sentent oubliées." },
+      { fr: "la décroissance", nl: "ontgroei", ex: "La décroissance reste marginale." },
+      { fr: "le pouvoir financier", nl: "financiële macht", ex: "Le pouvoir financier des multinationales." }
+    ]
+  },
+  {
+    id: "v_politique", theme: "Politique & institutions", icon: "🏛️",
+    words: [
+      { fr: "la démocratie représentative", nl: "representatieve democratie", ex: "La démocratie représentative est contestée." },
+      { fr: "l'abstention (f)", nl: "afzijdigheid (stemming)", ex: "L'abstention atteint des records." },
+      { fr: "le pouvoir exécutif", nl: "uitvoerende macht", ex: "Le pouvoir exécutif appartient au gouvernement." },
+      { fr: "le pouvoir législatif", nl: "wetgevende macht", ex: "Le pouvoir législatif vote les lois." },
+      { fr: "la souveraineté", nl: "soevereiniteit", ex: "Préserver la souveraineté nationale." },
+      { fr: "le suffrage universel", nl: "algemeen kiesrecht", ex: "Élu au suffrage universel direct." },
+      { fr: "promulguer", nl: "afkondigen", ex: "Le président promulgue la loi." },
+      { fr: "le scrutin", nl: "stemming", ex: "Un scrutin à deux tours." },
+      { fr: "le clivage politique", nl: "politieke scheidslijn", ex: "Les clivages politiques évoluent." },
+      { fr: "le populisme", nl: "populisme", ex: "La montée du populisme inquiète." },
+      { fr: "réformer", nl: "hervormen", ex: "Réformer les retraites est délicat." },
+      { fr: "l'alternance (f)", nl: "machtswisseling", ex: "L'alternance démocratique." },
+      { fr: "le mandat", nl: "ambtstermijn", ex: "Un mandat de cinq ans." },
+      { fr: "la transparence", nl: "transparantie", ex: "Exiger plus de transparence." },
+      { fr: "consensuel(le)", nl: "consensueel", ex: "Une décision consensuelle." }
+    ]
+  },
+  {
+    id: "v_migration", theme: "Migration & diversité", icon: "🌍",
+    words: [
+      { fr: "l'immigration (f)", nl: "immigratie", ex: "L'immigration enrichit la société." },
+      { fr: "l'intégration (f)", nl: "integratie", ex: "L'intégration réussie demande du temps." },
+      { fr: "l'asile (m)", nl: "asiel", ex: "Le droit d'asile est sacré." },
+      { fr: "le réfugié / la réfugiée", nl: "vluchteling", ex: "Les réfugiés fuient la guerre." },
+      { fr: "la xénophobie", nl: "vreemdelingenhaat", ex: "Combattre la xénophobie." },
+      { fr: "le multiculturalisme", nl: "multiculturalisme", ex: "Le multiculturalisme est un défi." },
+      { fr: "les origines", nl: "afkomst", ex: "Assumer ses origines diverses." },
+      { fr: "la naturalisation", nl: "naturalisatie", ex: "Demander sa naturalisation." },
+      { fr: "le regroupement familial", nl: "gezinshereniging", ex: "Le regroupement familial est encadré." },
+      { fr: "la discrimination", nl: "discriminatie", ex: "La discrimination à l'embauche perdure." },
+      { fr: "l'altérité (f)", nl: "anders-zijn", ex: "Accepter l'altérité." },
+      { fr: "le creuset", nl: "smeltkroes", ex: "La ville, creuset des cultures." },
+      { fr: "l'enracinement (m)", nl: "verworteling", ex: "Son enracinement local est fort." },
+      { fr: "communautariste", nl: "gemeenschapsgericht", ex: "Une approche communautariste." },
+      { fr: "l'exode (m)", nl: "uittocht", ex: "L'exode rural se poursuit." }
+    ]
+  },
+  {
+    id: "v_sciences", theme: "Sciences & recherche", icon: "🔬",
+    words: [
+      { fr: "la recherche fondamentale", nl: "fundamenteel onderzoek", ex: "La recherche fondamentale a besoin de temps." },
+      { fr: "l'éthique (f)", nl: "ethiek", ex: "L'éthique scientifique encadre les expériences." },
+      { fr: "l'expérimentation (f)", nl: "experiment", ex: "L'expérimentation animale fait débat." },
+      { fr: "la découverte", nl: "ontdekking", ex: "Une découverte majeure." },
+      { fr: "le progrès", nl: "vooruitgang", ex: "Le progrès soulève des questions." },
+      { fr: "l'innovation (f)", nl: "innovatie", ex: "L'innovation booste la croissance." },
+      { fr: "le génie génétique", nl: "genetische manipulatie", ex: "Le génie génétique soulève des questions." },
+      { fr: "valider", nl: "valideren", ex: "Valider une hypothèse." },
+      { fr: "le brevet", nl: "patent", ex: "Déposer un brevet." },
+      { fr: "le chercheur / la chercheuse", nl: "onderzoeker", ex: "Les chercheurs manquent de moyens." },
+      { fr: "la vulgarisation", nl: "popularisering", ex: "La vulgarisation scientifique est utile." },
+      { fr: "réfuter", nl: "weerleggen", ex: "Réfuter une thèse." },
+      { fr: "controversé(e)", nl: "controversieel", ex: "Une théorie controversée." },
+      { fr: "l'avancée (f)", nl: "doorbraak", ex: "Une avancée scientifique majeure." },
+      { fr: "expérimenter", nl: "experimenteren", ex: "Expérimenter sur l'animal." }
+    ]
+  }
+];
+
+// ============================================================
+// CONNECTEURS
+// ============================================================
+const CONNECTEURS = {
+  "Introduire un argument": ["Tout d'abord", "En premier lieu", "Force est de constater que", "Il convient de souligner que"],
+  "Ajouter": ["De plus", "Par ailleurs", "En outre", "Qui plus est", "De surcroît"],
+  "Donner un exemple": ["Par exemple", "À titre d'exemple", "Notamment", "En l'occurrence", "Ainsi"],
+  "Exprimer la cause": ["Étant donné que", "Du fait que", "Vu que", "En raison de"],
+  "Exprimer la conséquence": ["Par conséquent", "Ainsi", "De ce fait", "Il s'ensuit que", "C'est pourquoi"],
+  "Concéder": ["Certes... mais", "Bien que (+ subj)", "Quoique (+ subj)", "Il est vrai que... néanmoins"],
+  "S'opposer": ["En revanche", "À l'inverse", "Cependant", "Toutefois", "Néanmoins"],
+  "Reformuler": ["Autrement dit", "En d'autres termes", "C'est-à-dire", "Plus précisément"],
+  "Conclure": ["En définitive", "En somme", "Tout compte fait", "Pour conclure", "Au final"]
+};
+
+// ============================================================
+// ESSAY PROMPTS (30 sujets DELF C1)
+// ============================================================
+const ESSAY_PROMPTS = [
+  { id: "e1", theme: "Technologie", prompt: "Les réseaux sociaux constituent-ils un outil de démocratisation de la parole ou un danger pour le débat public? Argumentez. (250 mots)" },
+  { id: "e2", theme: "Environnement", prompt: "Faut-il imposer aux citoyens des changements radicaux de mode de vie pour lutter contre le réchauffement climatique? (250 mots)" },
+  { id: "e3", theme: "Éducation", prompt: "L'école doit-elle se concentrer sur la transmission de connaissances ou sur le développement personnel des élèves? (250 mots)" },
+  { id: "e4", theme: "Travail", prompt: "Le télétravail généralisé est-il un progrès social ou une menace pour le lien collectif? (250 mots)" },
+  { id: "e5", theme: "Culture", prompt: "Les œuvres culturelles devraient-elles être accessibles gratuitement à tous? (250 mots)" },
+  { id: "e6", theme: "Médias", prompt: "Les médias traditionnels sont-ils encore légitimes à l'ère des réseaux sociaux et des influenceurs? (250 mots)" },
+  { id: "e7", theme: "Société", prompt: "L'individualisme contemporain est-il une libération ou une menace pour le vivre-ensemble? (250 mots)" },
+  { id: "e8", theme: "Santé", prompt: "Faut-il rendre certains gestes de prévention (vaccination, dépistage) obligatoires? (250 mots)" },
+  { id: "e9", theme: "Économie", prompt: "La décroissance est-elle une solution viable face aux limites planétaires? (250 mots)" },
+  { id: "e10", theme: "Politique", prompt: "Le vote devrait-il être obligatoire dans une démocratie? (250 mots)" },
+  { id: "e11", theme: "Migration", prompt: "L'accueil des migrants est-il un devoir moral ou une question de calcul économique? (250 mots)" },
+  { id: "e12", theme: "Sciences", prompt: "Faut-il fixer des limites éthiques à la recherche scientifique? (250 mots)" },
+  { id: "e13", theme: "Technologie", prompt: "L'intelligence artificielle va-t-elle libérer l'humanité ou créer une nouvelle inégalité? (250 mots)" },
+  { id: "e14", theme: "Environnement", prompt: "L'énergie nucléaire est-elle indispensable à la transition écologique? (250 mots)" },
+  { id: "e15", theme: "Culture", prompt: "La diversité linguistique est-elle un atout ou un frein dans un monde globalisé? (250 mots)" },
+  { id: "e16", theme: "Travail", prompt: "Faut-il instaurer un revenu universel? (250 mots)" },
+  { id: "e17", theme: "Société", prompt: "La cancel culture est-elle une exigence légitime ou une dérive censoriale? (250 mots)" },
+  { id: "e18", theme: "Éducation", prompt: "L'usage du smartphone à l'école doit-il être autorisé, encadré ou interdit? (250 mots)" },
+  { id: "e19", theme: "Médias", prompt: "Faut-il financer l'audiovisuel public par l'impôt pour garantir son indépendance? (250 mots)" },
+  { id: "e20", theme: "Sciences", prompt: "Faut-il accepter la modification génétique humaine pour éliminer les maladies héréditaires? (250 mots)" },
+  { id: "e21", theme: "Santé", prompt: "L'euthanasie devrait-elle être légalisée? (250 mots)" },
+  { id: "e22", theme: "Économie", prompt: "Le commerce équitable est-il une vraie solution ou un argument marketing? (250 mots)" },
+  { id: "e23", theme: "Politique", prompt: "Les référendums citoyens sont-ils un instrument démocratique ou un risque populiste? (250 mots)" },
+  { id: "e24", theme: "Culture", prompt: "Les musées doivent-ils restituer les œuvres acquises pendant la colonisation? (250 mots)" },
+  { id: "e25", theme: "Société", prompt: "Le télétravail menace-t-il l'égalité entre les générations sur le marché du travail? (250 mots)" },
+  { id: "e26", theme: "Environnement", prompt: "Faut-il interdire les vols de courte distance lorsque le train est possible? (250 mots)" },
+  { id: "e27", theme: "Technologie", prompt: "Le métavers va-t-il enrichir nos vies ou nous isoler davantage? (250 mots)" },
+  { id: "e28", theme: "Éducation", prompt: "Faut-il revaloriser financièrement le métier d'enseignant? (250 mots)" },
+  { id: "e29", theme: "Travail", prompt: "La semaine de quatre jours est-elle l'avenir du travail? (250 mots)" },
+  { id: "e30", theme: "Société", prompt: "La parité homme-femme doit-elle être imposée par la loi dans tous les domaines? (250 mots)" }
+];
+
+// ============================================================
+// SYNTHÈSE PROMPTS — 6 dossiers complets
+// ============================================================
+const SYNTHESE_PROMPTS = [
+  {
+    id: "s1", theme: "Le télétravail",
+    consigne: "Vous ferez une synthèse des deux documents suivants en 220 mots environ. Vous ne donnerez pas votre opinion personnelle.",
+    texts: [
+      { title: "Document 1 — Le télétravail, une révolution silencieuse", source: "(Adapté de Le Monde, 2024)",
+        content: "La généralisation du télétravail depuis la pandémie a transformé en profondeur l'organisation du monde professionnel. Selon une étude récente, 38% des salariés français pratiquent désormais le télétravail au moins un jour par semaine, contre seulement 7% en 2017. Cette modalité séduit massivement les actifs : autonomie accrue, économies de transport, meilleur équilibre vie privée-vie professionnelle figurent parmi les bénéfices les plus cités. Les entreprises y trouvent également leur compte, réalisant des économies substantielles sur les frais immobiliers et constatant souvent une productivité maintenue voire améliorée. Pourtant, ce nouveau paradigme n'est pas sans soulever des inquiétudes. Les managers expriment des difficultés à maintenir la cohésion d'équipe, tandis que de nombreux salariés évoquent un sentiment d'isolement croissant. La frontière entre vie professionnelle et vie personnelle s'estompe, exposant les télétravailleurs à un risque accru de burn-out. Les inégalités face au télétravail constituent par ailleurs un enjeu majeur : ouvriers, employés de services et artisans en sont largement exclus." },
+      { title: "Document 2 — Les angles morts du télétravail", source: "(Adapté de Libération, 2023)",
+        content: "Si le télétravail est vanté comme un progrès, il convient d'en examiner les zones d'ombre. Plusieurs études convergent : les jeunes salariés, en début de carrière, peinent à se former et à se constituer un réseau lorsqu'ils travaillent à distance. Les transmissions informelles, ces apprentissages par observation autour de la machine à café, disparaissent. Pire, les femmes seraient parmi les premières victimes du télétravail : confinées à domicile, elles assument souvent la majorité des tâches domestiques en parallèle de leur activité professionnelle, ce qui fragilise leur progression de carrière. Sur le plan psychologique, l'isolement engendré par le télétravail intensif aggrave les troubles anxieux et dépressifs, particulièrement chez les célibataires. Enfin, la frontière vie privée-vie professionnelle, théoriquement améliorée, est dans les faits souvent plus poreuse. Le télétravail mérite une régulation plus stricte pour éviter qu'il ne devienne un nouvel outil d'aliénation." }
+    ]
+  },
+  {
+    id: "s2", theme: "L'intelligence artificielle",
+    consigne: "Synthèse des deux documents en 220 mots environ. Pas d'opinion personnelle.",
+    texts: [
+      { title: "Document 1 — L'IA, moteur de progrès", source: "(Adapté de Les Échos, 2024)",
+        content: "L'intelligence artificielle s'impose comme la révolution technologique du XXIe siècle. Dans le domaine médical, elle permet désormais de diagnostiquer certains cancers avec une précision supérieure à celle des médecins. Dans l'industrie, elle optimise les chaînes de production, réduit les déchets et augmente la productivité. Dans l'éducation, elle promet un apprentissage personnalisé, adapté au rythme de chaque élève. Selon les experts, l'IA pourrait générer jusqu'à 15 000 milliards de dollars de valeur économique mondiale d'ici 2030. Loin de remplacer l'humain, elle agirait comme un assistant intelligent, libérant les travailleurs des tâches répétitives pour qu'ils se concentrent sur la créativité et les interactions humaines. Les pays qui sauront investir massivement dans cette technologie en sortiront renforcés économiquement et géopolitiquement. La France et l'Europe doivent accélérer leurs efforts pour ne pas rester dépendantes des géants américains et chinois." },
+      { title: "Document 2 — Les risques d'une IA non régulée", source: "(Adapté de Le Figaro, 2023)",
+        content: "Le développement fulgurant de l'intelligence artificielle suscite de vives inquiétudes. La première concerne l'emploi : selon une étude, près de 300 millions d'emplois pourraient être directement menacés à l'échelle mondiale, notamment dans la traduction, le journalisme, le droit ou la comptabilité. Les inégalités risquent de se creuser entre les travailleurs qualifiés capables de collaborer avec ces outils et les autres, condamnés à la précarité. La deuxième inquiétude porte sur la désinformation : les contenus générés par IA (deepfakes, textes trompeurs) menacent la qualité du débat démocratique. La troisième préoccupation est éthique : qui sera responsable lorsqu'une IA prendra une décision dommageable? Les biais algorithmiques renforcent par ailleurs les discriminations existantes. Enfin, la concentration du pouvoir technologique entre les mains de quelques entreprises géantes pose un problème géopolitique majeur. Une régulation internationale stricte devient impérative." }
+    ]
+  },
+  {
+    id: "s3", theme: "L'enseignement supérieur",
+    consigne: "Synthèse en 220 mots environ.",
+    texts: [
+      { title: "Document 1 — L'université, ascenseur social en panne", source: "(Adapté du Monde de l'Éducation)",
+        content: "L'université française, longtemps présentée comme l'institution républicaine de la promotion sociale, peine aujourd'hui à tenir cette promesse. Les enfants d'ouvriers ne représentent que 12% des étudiants en master, contre 35% des enfants de cadres supérieurs. Le décrochage massif en première année — près de 40% des étudiants abandonnent — touche prioritairement les jeunes issus de milieux populaires. Les raisons sont multiples : manque de capital culturel, difficultés financières, absence de réseaux, autocensure dans le choix des filières prestigieuses. Les grandes écoles, censées être méritocratiques, reproduisent les hiérarchies sociales avec une efficacité redoutable : à HEC ou à Polytechnique, les enfants de cadres représentent plus de 60% des effectifs. L'État doit impérativement renforcer les bourses, démocratiser l'orientation et accompagner les étudiants vulnérables si l'on souhaite que l'université redevienne un véritable instrument d'émancipation." },
+      { title: "Document 2 — Repenser la formation supérieure", source: "(Adapté d'Alternatives Économiques)",
+        content: "Au-delà des inégalités d'accès, c'est la pertinence même de la formation supérieure qui est interrogée. Les diplômes se multiplient sans toujours garantir un emploi qualifié : un tiers des diplômés du supérieur occupent un poste sous-qualifié cinq ans après leur sortie. L'inadéquation entre formations universitaires et besoins du marché du travail constitue un défi majeur, tandis que les entreprises peinent à recruter dans des secteurs porteurs (numérique, transition énergétique). L'apprentissage et l'alternance, longtemps déconsidérés, gagnent du terrain et offrent souvent de meilleurs débouchés. Par ailleurs, la formation tout au long de la vie devient une nécessité dans un monde où les compétences se renouvellent rapidement. Plutôt que d'opposer enseignement académique et formation professionnelle, il convient de les articuler intelligemment." }
+    ]
+  },
+  {
+    id: "s4", theme: "L'urgence climatique",
+    consigne: "Synthèse en 220 mots environ.",
+    texts: [
+      { title: "Document 1 — Agir maintenant", source: "(Adapté de The Conversation France)",
+        content: "Le dernier rapport du GIEC est sans appel : nous disposons d'à peine une décennie pour éviter un dérèglement climatique catastrophique. Les conséquences d'un réchauffement supérieur à 1,5°C seraient considérables : montée des eaux, multiplication des canicules, perte massive de biodiversité, déplacements de populations à grande échelle. Pourtant, les engagements actuels des États placent la planète sur une trajectoire de 2,7°C. Il est urgent de transformer radicalement nos sociétés : abandon progressif des énergies fossiles, généralisation des transports collectifs et doux, sobriété énergétique, refonte de l'alimentation. Les coûts d'une action immédiate sont infiniment inférieurs à ceux de l'inaction. La transition écologique ne doit cependant pas se faire au détriment des plus vulnérables : elle doit être juste socialement, sous peine de provoquer un rejet massif des politiques climatiques." },
+      { title: "Document 2 — Les limites de l'action individuelle", source: "(Adapté de Reporterre)",
+        content: "On entend partout le même refrain : pour sauver la planète, chacun doit faire sa part. Trier ses déchets, prendre le vélo, manger moins de viande. Si ces gestes ont leur utilité, ils ne sauraient suffire. Les calculs sont clairs : 100 entreprises sont responsables de 71% des émissions mondiales de gaz à effet de serre depuis 1988. Tant que les majors pétrolières continueront à extraire, tant que les industries lourdes polluantes ne seront pas régulées, l'effort individuel restera marginal. Pire, mettre la pression sur les citoyens permet aux véritables responsables de se déresponsabiliser. La transition écologique exige des décisions politiques courageuses : réglementations contraignantes, taxation des activités polluantes, planification écologique. Sans ce volet structurel, les politiques climatiques resteront cosmétiques." }
+    ]
+  },
+  {
+    id: "s5", theme: "La culture à l'ère du numérique",
+    consigne: "Synthèse en 220 mots environ.",
+    texts: [
+      { title: "Document 1 — Le numérique démocratise l'accès", source: "(Adapté de Télérama)",
+        content: "Jamais dans l'histoire, l'accès aux œuvres culturelles n'a été aussi vaste. Les plateformes de streaming offrent à un public mondial des films, séries, musiques et livres autrefois réservés à une élite urbaine et cultivée. Un adolescent dans un village isolé peut désormais regarder les films de Kurosawa, écouter de la musique baroque, lire des œuvres rares numérisées. Les visites virtuelles de musées, les conférences en ligne, les MOOC universitaires ouvrent gratuitement le savoir et la culture à tous. Cette démocratisation s'accompagne d'une diversification des contenus : des œuvres venues de cultures minoritaires trouvent enfin leur public grâce aux algorithmes de recommandation. Le numérique brise les frontières géographiques et sociales qui freinaient l'accès à la culture." },
+      { title: "Document 2 — Une consommation appauvrissante", source: "(Adapté du Nouvel Observateur)",
+        content: "Cette apparente démocratisation cache une réalité plus contrastée. Les algorithmes des plateformes enferment les utilisateurs dans des bulles de recommandation, privilégiant les contenus consensuels, courts et viraux au détriment de la profondeur. La concentration des plateformes — quelques géants américains contrôlent l'essentiel du marché — appauvrit la diversité culturelle réelle : les productions locales peinent à exister face aux blockbusters. La consommation rapide et fragmentée remplace l'expérience approfondie : on regarde une série en accéléré, on écoute un morceau sur 30 secondes, on consulte un article à la diagonale. Les chiffres montrent par ailleurs que les inégalités face à la culture persistent : les classes populaires consomment davantage de divertissement standardisé, tandis que les classes aisées continuent d'investir dans la culture savante." }
+    ]
+  },
+  {
+    id: "s6", theme: "Les jeunes et la politique",
+    consigne: "Synthèse en 220 mots environ.",
+    texts: [
+      { title: "Document 1 — Une jeunesse engagée autrement", source: "(Adapté de Slate.fr)",
+        content: "Le discours sur la dépolitisation des jeunes est trompeur. Si l'abstention électorale des 18-34 ans atteint des records (60% au premier tour des dernières législatives), cela ne signifie pas qu'ils se désintéressent de la chose publique. Au contraire : les marches pour le climat, les mouvements #MeToo et Black Lives Matter, l'engagement associatif, le militantisme en ligne témoignent d'une mobilisation intense. La jeunesse ne croit plus aux partis traditionnels, jugés sclérosés et déconnectés. Elle privilégie l'action directe, la mobilisation thématique, l'expression sur les réseaux sociaux. Cette transformation est saine : elle reflète une démocratie qui se renouvelle, qui invente de nouvelles formes de citoyenneté plus horizontales, moins institutionnelles." },
+      { title: "Document 2 — Un délitement démocratique inquiétant", source: "(Adapté du Figaro Magazine)",
+        content: "Présenter l'abstention massive comme une 'autre forme d'engagement' relève du déni. Si l'on observe les pratiques des jeunes, le constat est préoccupant : méconnaissance des institutions, défiance massive à l'égard des élus (75% n'ont pas confiance), faible participation aux instances de représentation, perte du sens du compromis démocratique. Les mobilisations thématiques, certes louables, ne remplacent pas l'engagement politique au long cours, celui qui consiste à construire des programmes, à débattre, à voter. Le risque est celui d'une démocratie morcelée où chacun défend sa cause sans accepter les arbitrages communs. Les jeunes générations doivent renouer avec les institutions, sous peine de voir s'installer durablement une crise de légitimité." }
+    ]
+  }
+];
+
+// ============================================================
+// STRUCTURES (essai + synthèse)
+// ============================================================
+const STRUCTURES = {
+  essai: {
+    title: "Structure d'un essai argumenté",
+    intro: "L'essai argumenté DELF C1 fait ongeveer **250 mots**. Het belangrijkste: **neem positie** en verdedig die met argumenten + concrete voorbeelden. Vermijd een te neutraal 'voor en tegen' — de jury wil een duidelijke thèse.",
+    parts: [
+      { name: "Introduction (~40 mots)", points: ["Accroche / contexte général", "Présentation du sujet", "Annonce de la thèse (ta position)", "Annonce du plan (2-3 idées)"] },
+      { name: "Argument 1 (~80 mots)", points: ["Idée directrice claire (1 phrase)", "Explication / justification", "Exemple concret (statistique, fait, anecdote)", "Conclusion partielle"] },
+      { name: "Argument 2 (~80 mots)", points: ["Nouvelle idée qui renforce ou nuance", "Connecteur logique fort (de plus, par ailleurs, qui plus est)", "Exemple", "Articulation avec la thèse"] },
+      { name: "Conclusion (~50 mots)", points: ["Synthèse de la thèse (reformulée)", "Ouverture: question, perspective, prolongement"] }
+    ],
+    tips: [
+      "Gebruik **gevarieerde connecteurs** (niet alleen 'et', 'mais', 'donc')",
+      "Wissel **werkwoordstijden** af (présent, conditionnel voor hypotheses, subjonctif na 'il faut que')",
+      "Gebruik **precieze voorbeelden** (cijfers, gebeurtenissen, culturele referenties)",
+      "Vermijd 'je pense que' in elke zin — varieer: 'il est indéniable que', 'on peut affirmer que'",
+      "Let op **spelling en akkoord** (-é/-er, accord PP)"
+    ]
+  },
+  synthese: {
+    title: "Structure d'une synthèse",
+    intro: "De synthèse is ongeveer **220 mots** en combineert 2 documenten. **GEEN persoonlijke mening**, alleen geherformuleerde ideeën uit de teksten. Jury beoordeelt: begrip, herformulering, logische ordening.",
+    parts: [
+      { name: "Introduction (~30 mots)", points: ["Présente le thème commun", "Présente brièvement les 2 documents (type, sources)", "Annonce le plan (axes thématiques)"] },
+      { name: "Développement (~160 mots, 2-3 axes)", points: ["Organiseer per IDEE, niet per document!", "Per idee: confronteer wat beide teksten zeggen", "Gebruik: 'Selon le premier document...', 'Le second texte nuance...'", "Herformuleer ALTIJD (geen copy-paste)"] },
+      { name: "Conclusion brève (~30 mots)", points: ["Récapitule l'essentiel", "PAS d'avis personnel"] }
+    ],
+    tips: [
+      "**NOOIT** een zin uit de tekst kopiëren — altijd herformuleren",
+      "**Geen 'je'** in de synthèse",
+      "Gebruik **nominalisation** om te condenseren (i.p.v. 'les gens consomment trop' → 'la surconsommation')",
+      "Tel je woorden: ±10% getolereerd (200-240 mots)",
+      "Verzorg **transities** tussen de assen",
+      "Identificeer de **kern-ideeën** vóór je schrijft — maak een mini-plan"
+    ]
+  }
+};
+function HomeScreen({ user, progress, onNavigate }) {
+  const grammarStats = Object.values(progress.grammar || {});
+  const totalAttempts = grammarStats.reduce((a, b) => a + (b.attempts || 0), 0);
+  const totalCorrect = grammarStats.reduce((a, b) => a + (b.correct || 0), 0);
+  const grammarAccuracy = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
+  const vocabDone = Object.keys(progress.vocab || {}).length;
+  const essaysDone = (progress.essays || []).length;
+  const synthesesDone = (progress.syntheses || []).length;
+  const exam = new Date("2026-06-15");
+  const today = new Date();
+  const daysLeft = Math.max(0, Math.ceil((exam - today) / (1000 * 60 * 60 * 24)));
+
+  const todaySuggestion = essaysDone + synthesesDone < 8
+    ? { label: "Begin met schrijven", icon: PenLine, action: () => onNavigate("write") }
+    : totalAttempts < 50
+      ? { label: "Doe grammatica", icon: BookOpen, action: () => onNavigate("grammar") }
+      : { label: "Oefen vocabulaire", icon: Sparkles, action: () => onNavigate("vocab") };
+
+  return (
+    <div className="px-5 pt-3 pb-8 space-y-5">
+      <div className="pt-2">
+        <div className="flex items-baseline justify-between">
+          <h1 className="text-4xl font-bold text-pink-950 tracking-tight" style={{ fontFamily: "'Fraunces', serif", fontVariationSettings: "'opsz' 144, 'SOFT' 100" }}>
+            Bonjour
+          </h1>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 bg-gradient-to-br from-orange-100 to-amber-100 px-3 py-1.5 rounded-full shadow-sm">
+              <Flame className="w-4 h-4 text-orange-500" fill="currentColor" />
+              <span className="font-bold text-orange-700">{user.streak || 0}</span>
+            </div>
+            <button onClick={() => onNavigate("settings")} className="w-9 h-9 rounded-full bg-white/70 backdrop-blur border border-pink-100 flex items-center justify-center active:scale-95 transition">
+              <Settings className="w-4 h-4 text-pink-500" />
+            </button>
+          </div>
+        </div>
+        <p className="text-pink-700/70 mt-1 text-sm">
+          {daysLeft > 0 ? `Encore ${daysLeft} jours avant l'examen` : "C'est aujourd'hui ! 💪"}
+        </p>
+      </div>
+
+      <Card className="p-5 bg-gradient-to-br from-rose-50 via-white to-pink-50 relative overflow-hidden">
+        <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-gradient-to-br from-pink-200/40 to-rose-200/40 blur-2xl pointer-events-none" />
+        <div className="relative">
+          <div className="flex items-center gap-2 text-pink-600 text-xs font-semibold tracking-widest uppercase mb-2">
+            <Target className="w-3.5 h-3.5" /> Aujourd'hui
+          </div>
+          <h2 className="text-2xl font-semibold text-pink-950 mb-1" style={{ fontFamily: "'Fraunces', serif" }}>
+            Sessie van 20 minuten
+          </h2>
+          <p className="text-sm text-pink-700/80 mb-4">
+            Suggestie: <strong>{todaySuggestion.label.toLowerCase()}</strong>, daarna een korte grammatica- en vocab-oefening.
+          </p>
+          <PrimaryButton onClick={todaySuggestion.action}>
+            <span className="flex items-center justify-center gap-2"><todaySuggestion.icon className="w-5 h-5" />Start sessie</span>
+          </PrimaryButton>
+        </div>
+      </Card>
+
+      <div className="grid grid-cols-2 gap-3">
+        {[
+          { c: "text-pink-600", I: BookOpen, l: "GRAMMATICA", v: `${grammarAccuracy}%`, s: `${totalAttempts} oefeningen` },
+          { c: "text-rose-600", I: Sparkles, l: "VOCAB", v: vocabDone, s: "woorden gezien" },
+          { c: "text-fuchsia-600", I: PenLine, l: "ESSAIS", v: essaysDone, s: "geschreven" },
+          { c: "text-purple-600", I: BookMarked, l: "SYNTHÈSES", v: synthesesDone, s: "gemaakt" }
+        ].map((it, i) => (
+          <Card key={i} className="p-4">
+            <div className={`flex items-center gap-1.5 ${it.c} text-[10px] font-bold tracking-widest mb-1.5`}>
+              <it.I className="w-3 h-3" /> {it.l}
+            </div>
+            <div className="text-2xl font-bold text-pink-950">{it.v}</div>
+            <div className={`text-xs ${it.c} opacity-70`}>{it.s}</div>
+          </Card>
+        ))}
+      </div>
+
+      <div>
+        <h3 className="px-1 text-[11px] font-bold text-pink-700/70 uppercase tracking-widest mb-2">Onderdelen</h3>
+        <Card className="divide-y divide-pink-100/70 overflow-hidden">
+          {[
+            { id: "write", label: "Schrijven", desc: "Essai & synthèse + AI-feedback", icon: PenLine, color: "from-pink-400 to-rose-400" },
+            { id: "grammar", label: "Grammatica", desc: "A1–C1, 40+ onderwerpen", icon: BookOpen, color: "from-rose-400 to-fuchsia-400" },
+            { id: "vocab", label: "Vocabulaire", desc: "12 C1-thema's, flashcards & quiz", icon: Sparkles, color: "from-fuchsia-400 to-purple-400" },
+            { id: "progress", label: "Voortgang", desc: "Per onderwerp tracking", icon: TrendingUp, color: "from-purple-400 to-pink-400" }
+          ].map((item) => (
+            <button key={item.id} onClick={() => onNavigate(item.id)} className="w-full flex items-center gap-3 px-4 py-3.5 active:bg-pink-50 transition text-left">
+              <div className={`w-10 h-10 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-sm`}>
+                <item.icon className="w-5 h-5 text-white" />
+              </div>
+              <div className="flex-1">
+                <div className="font-semibold text-pink-950">{item.label}</div>
+                <div className="text-xs text-pink-700/70">{item.desc}</div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-pink-300" />
+            </button>
+          ))}
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// WRITING SCREEN
+// ============================================================
+function WritingScreen({ progress, setProgress, writings, setWritings, onBack }) {
+  const [mode, setMode] = useState(null);
+  const [structureType, setStructureType] = useState("essai");
+  const [prompt, setPrompt] = useState(null);
+  const [text, setText] = useState("");
+  const [feedback, setFeedback] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+
+  const pickPrompt = (kind) => {
+    const pool = kind === "essai" ? ESSAY_PROMPTS : SYNTHESE_PROMPTS;
+    const doneIds = (kind === "essai" ? progress.essays : progress.syntheses).map(e => e.promptId);
+    const undone = pool.filter(p => !doneIds.includes(p.id));
+    const src = undone.length > 0 ? undone : pool;
+    const p = src[Math.floor(Math.random() * src.length)];
+    setPrompt(p); setMode(kind); setText(""); setFeedback(null); setError(null);
+  };
+
+  const submitForFeedback = async () => {
+    setLoading(true); setError(null);
+    try {
+      const isSynthese = mode === "synthese";
+      const sources = isSynthese ? prompt.texts.map(t => `${t.title}\n${t.content}`).join("\n\n") : "";
+      const system = isSynthese
+        ? `Je bent een ervaren DELF C1 corrector. Beoordeel een SYNTHÈSE (~220 mots, Frans, geen mening). Geef feedback in het NEDERLANDS (Franse voorbeelden in het Frans laten).
+Structuur:
+**Score globale**: x/25 met korte uitleg.
+**Sterke punten** (2-3 puntjes).
+**Verbeterpunten**: concreet, met *exacte fouten* uit de tekst tussen aanhalingstekens en correctie ernaast.
+**Grammatica/spelling**: lijst van fouten met correctie.
+**Vocabulaire/registre**: minstens 3 woordsuggesties (formeler/preciezer).
+**Inhoudelijke check**: zegt de synthèse alleen wat in de bronnen staat? Wijst op kopieerfouten of weglatingen.
+Streng (DELF C1 niveau) maar bemoedigend.`
+        : `Je bent een ervaren DELF C1 corrector. Beoordeel een ESSAI ARGUMENTÉ (~250 mots, Frans). Feedback in het NEDERLANDS (Franse voorbeelden Frans).
+Structuur:
+**Score globale**: x/25 met uitleg.
+**Sterke punten** (2-3).
+**Structuur**: duidelijke intro, 2 argumenten + voorbeelden, conclusie?
+**Grammatica/spelling**: lijst fouten + correcties (echte fouten uit de tekst, tussen aanhalingstekens).
+**Vocabulaire/registre**: minstens 3 suggesties voor rijker C1-vocabulaire.
+**Argumentatie**: zijn argumenten goed onderbouwd? Logische fouten of clichés?
+Streng maar bemoedigend.`;
+
+      const userMsg = isSynthese
+        ? `OPDRACHT: ${prompt.consigne}\n\nBRONNEN:\n${sources}\n\nLEERLING TEKST (${wordCount} mots):\n${text}`
+        : `OPDRACHT: ${prompt.prompt}\n\nLEERLING TEKST (${wordCount} mots):\n${text}`;
+
+      const result = await callClaude(system, userMsg, 1800);
+      setFeedback(result);
+      const entry = { date: new Date().toISOString(), kind: isSynthese ? "synthese" : "essai", promptId: prompt.id, theme: prompt.theme, text, wordCount, feedback: result };
+      const writingsArr = [entry, ...(writings || [])];
+      setWritings(writingsArr); saveWritings(writingsArr);
+      const newProgress = { ...progress };
+      if (isSynthese) newProgress.syntheses = [entry, ...(progress.syntheses || [])];
+      else newProgress.essays = [entry, ...(progress.essays || [])];
+      setProgress(newProgress); saveProgress(newProgress);
+    } catch (e) {
+      setError("Er ging iets mis bij de feedback. Probeer opnieuw.");
+    }
+    setLoading(false);
+  };
+
+  // STRUCTURE VIEW
+  if (mode === "structure") {
+    const s = STRUCTURES[structureType];
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-4">
+        <BackButton onClick={() => setMode(null)} />
+        <div className="flex bg-pink-50 p-1 rounded-2xl">
+          {["essai", "synthese"].map(k => (
+            <button key={k} onClick={() => setStructureType(k)} className={`flex-1 py-2 rounded-xl font-medium text-sm transition ${structureType === k ? "bg-white shadow text-pink-700" : "text-pink-500"}`}>
+              {k === "essai" ? "Essai" : "Synthèse"}
+            </button>
+          ))}
+        </div>
+        <h2 className="text-2xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>{s.title}</h2>
+        <Card className="p-4">
+          <p className="text-sm text-pink-900/85 leading-relaxed" dangerouslySetInnerHTML={renderMd(s.intro)} />
+        </Card>
+        {s.parts.map((part, i) => (
+          <Card key={i} className="p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-white text-sm font-bold flex items-center justify-center shadow-sm">{i + 1}</div>
+              <h3 className="font-semibold text-pink-950">{part.name}</h3>
+            </div>
+            <ul className="space-y-1.5 text-sm text-pink-900/85">
+              {part.points.map((pt, j) => <li key={j} className="flex gap-2"><span className="text-pink-400 font-bold">→</span>{pt}</li>)}
+            </ul>
+          </Card>
+        ))}
+        <Card className="p-4 bg-gradient-to-br from-amber-50 to-rose-50 border-amber-100">
+          <h3 className="font-semibold text-pink-950 mb-2 flex items-center gap-2">
+            <Star className="w-4 h-4 text-amber-500" fill="currentColor" /> Belangrijke tips
+          </h3>
+          <ul className="space-y-2 text-sm text-pink-900/85">
+            {s.tips.map((tip, j) => <li key={j} className="flex gap-2"><span className="text-amber-500">★</span><span dangerouslySetInnerHTML={renderMd(tip)} /></li>)}
+          </ul>
+        </Card>
+        <div>
+          <h3 className="font-semibold text-pink-950 mb-2 mt-2">Nuttige connecteurs C1</h3>
+          <div className="space-y-2">
+            {Object.entries(CONNECTEURS).map(([cat, list]) => (
+              <Card key={cat} className="p-3">
+                <div className="text-[10px] text-pink-500 font-bold uppercase tracking-widest mb-1">{cat}</div>
+                <div className="text-sm text-pink-950 leading-relaxed">{list.join(" · ")}</div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // HISTORY VIEW
+  if (mode === "history") {
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-4">
+        <BackButton onClick={() => setMode(null)} />
+        <h2 className="text-2xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Geschreven werk</h2>
+        {(writings || []).length === 0 ? (
+          <Card className="p-6 text-center"><p className="text-sm text-pink-700/70">Nog niets geschreven.</p></Card>
+        ) : writings.map((w, i) => (
+          <Card key={i} className="p-4">
+            <div className="flex items-center justify-between mb-2">
+              <Pill color={w.kind === "essai" ? "rose" : "fuchsia"}>{w.kind === "essai" ? "Essai" : "Synthèse"}</Pill>
+              <span className="text-xs text-pink-500">{new Date(w.date).toLocaleDateString("nl-NL", { day: "numeric", month: "short" })}</span>
+            </div>
+            <p className="text-xs text-pink-700/70 mb-2">{w.theme} · {w.wordCount} mots</p>
+            <details className="text-sm">
+              <summary className="cursor-pointer text-pink-700 font-medium">Bekijk tekst & feedback</summary>
+              <div className="mt-3 space-y-3">
+                <div>
+                  <div className="text-[10px] text-pink-500 font-bold uppercase tracking-widest mb-1">Jouw tekst</div>
+                  <p className="text-sm text-pink-900/85 whitespace-pre-wrap leading-relaxed">{w.text}</p>
+                </div>
+                <div>
+                  <div className="text-[10px] text-pink-500 font-bold uppercase tracking-widest mb-1">Feedback</div>
+                  <div className="text-sm text-pink-900/85 leading-relaxed" dangerouslySetInnerHTML={renderMd(w.feedback)} />
+                </div>
+              </div>
+            </details>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  // WRITING ACTIVE
+  if (mode && prompt) {
+    const targetMin = mode === "synthese" ? 200 : 230;
+    const targetMax = mode === "synthese" ? 240 : 270;
+    const inRange = wordCount >= targetMin && wordCount <= targetMax;
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-4">
+        <BackButton onClick={() => { setMode(null); setPrompt(null); setText(""); setFeedback(null); }} />
+        <div className="flex items-center justify-between">
+          <Pill color="rose">{mode === "essai" ? "Essai argumenté" : "Synthèse"}</Pill>
+          <Pill color="pink">{prompt.theme}</Pill>
+        </div>
+        {mode === "synthese" ? (
+          <>
+            <Card className="p-4 bg-pink-50/50">
+              <div className="text-[10px] uppercase tracking-widest text-pink-500 font-bold mb-1">Consigne</div>
+              <p className="text-sm text-pink-950 leading-relaxed">{prompt.consigne}</p>
+            </Card>
+            {prompt.texts.map((t, i) => (
+              <Card key={i} className="p-4">
+                <h4 className="font-semibold text-pink-950 mb-1">{t.title}</h4>
+                <p className="text-xs text-pink-500 italic mb-2">{t.source}</p>
+                <p className="text-sm text-pink-900/85 leading-relaxed">{t.content}</p>
+              </Card>
+            ))}
+          </>
+        ) : (
+          <Card className="p-4 bg-pink-50/50">
+            <div className="text-[10px] uppercase tracking-widest text-pink-500 font-bold mb-1">Sujet</div>
+            <p className="text-sm text-pink-950 leading-relaxed">{prompt.prompt}</p>
+          </Card>
+        )}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-sm font-semibold text-pink-900">Ton texte</label>
+            <span className={`text-xs font-mono px-2 py-0.5 rounded-full ${inRange ? "bg-emerald-100 text-emerald-700" : wordCount > targetMax ? "bg-amber-100 text-amber-700" : "bg-pink-100 text-pink-600"}`}>
+              {wordCount} / {targetMin}-{targetMax} mots
+            </span>
+          </div>
+          <textarea
+            value={text} onChange={(e) => setText(e.target.value)}
+            placeholder={mode === "synthese" ? "Commence par présenter le thème commun aux deux documents..." : "Commence par une accroche, puis annonce ta thèse..."}
+            className="w-full min-h-[320px] p-4 rounded-2xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none text-pink-950 placeholder-pink-300 resize-y"
+            style={{ fontSize: "15px", lineHeight: "1.6" }}
+          />
+        </div>
+        {!feedback && (
+          <PrimaryButton onClick={submitForFeedback} disabled={loading || wordCount < 80}>
+            {loading
+              ? <span className="flex items-center justify-center gap-2"><Loader2 className="w-5 h-5 animate-spin" /> Claude beoordeelt...</span>
+              : wordCount < 80 ? "Schrijf eerst minstens 80 woorden" : "Vraag AI-feedback"}
+          </PrimaryButton>
+        )}
+        {error && <p className="text-sm text-rose-600 text-center">{error}</p>}
+        {feedback && (
+          <>
+            <Card className="p-4 bg-gradient-to-br from-white via-pink-50/30 to-rose-50/30">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-pink-950">Feedback van Claude</h3>
+              </div>
+              <div className="text-sm text-pink-900/90 leading-relaxed" dangerouslySetInnerHTML={renderMd(feedback)} />
+            </Card>
+            <SecondaryButton onClick={() => pickPrompt(mode)} className="w-full">
+              <span className="flex items-center justify-center gap-2"><RotateCcw className="w-4 h-4" /> Nieuwe opdracht</span>
+            </SecondaryButton>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  // MENU
+  return (
+    <div className="px-5 pt-3 pb-8 space-y-4">
+      <BackButton onClick={onBack} />
+      <h1 className="text-3xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Schrijven</h1>
+      <p className="text-pink-700/80 text-sm">Het DELF C1 vraagt om een <strong>essai argumenté</strong> en een <strong>synthèse</strong>. Schrijf, en krijg directe feedback van AI.</p>
+      <button onClick={() => pickPrompt("essai")} className="w-full text-left">
+        <Card className="p-5 active:scale-[0.99] transition">
+          <div className="flex items-start gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-400 flex items-center justify-center shadow-sm">
+              <PenLine className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-pink-950 text-lg">Essai argumenté</h3>
+              <p className="text-sm text-pink-700/80 mt-0.5">~250 mots — neem positie, argumenteer met voorbeelden</p>
+              <div className="mt-2 flex gap-2">
+                <Pill color="rose">{(progress.essays || []).length} gemaakt</Pill>
+                <Pill color="pink">{ESSAY_PROMPTS.length} sujets</Pill>
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-pink-300 mt-2" />
+          </div>
+        </Card>
+      </button>
+      <button onClick={() => pickPrompt("synthese")} className="w-full text-left">
+        <Card className="p-5 active:scale-[0.99] transition">
+          <div className="flex items-start gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-400 to-fuchsia-400 flex items-center justify-center shadow-sm">
+              <BookMarked className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-pink-950 text-lg">Synthèse de documents</h3>
+              <p className="text-sm text-pink-700/80 mt-0.5">~220 mots — twee teksten samenvatten zonder mening</p>
+              <div className="mt-2 flex gap-2">
+                <Pill color="fuchsia">{(progress.syntheses || []).length} gemaakt</Pill>
+                <Pill color="pink">{SYNTHESE_PROMPTS.length} dossiers</Pill>
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-pink-300 mt-2" />
+          </div>
+        </Card>
+      </button>
+      <button onClick={() => { setMode("structure"); setStructureType("essai"); }} className="w-full text-left">
+        <Card className="p-5 active:scale-[0.99] transition bg-gradient-to-br from-pink-50 to-rose-50">
+          <div className="flex items-start gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm">
+              <Brain className="w-6 h-6 text-pink-500" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-pink-950 text-lg">Structuur uitgelegd</h3>
+              <p className="text-sm text-pink-700/80 mt-0.5">Hoe bouw je een DELF C1 essai/synthèse op? + connecteurs</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-pink-300 mt-2" />
+          </div>
+        </Card>
+      </button>
+      {(writings || []).length > 0 && (
+        <button onClick={() => setMode("history")} className="w-full text-left">
+          <Card className="p-4 active:scale-[0.99] transition">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-pink-50 flex items-center justify-center">
+                <Calendar className="w-5 h-5 text-pink-500" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-pink-950">Geschreven werk</h3>
+                <p className="text-xs text-pink-700/70">{(writings || []).length} stukken bewaard</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-pink-300" />
+            </div>
+          </Card>
+        </button>
+      )}
+    </div>
+  );
+}
+// ============================================================
+// GRAMMAR SCREEN
+// ============================================================
+function GrammarScreen({ progress, setProgress, onBack }) {
+  const [level, setLevel] = useState(null);
+  const [topic, setTopic] = useState(null);
+  const [exIdx, setExIdx] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [showResult, setShowResult] = useState(false);
+  const [sessionCorrect, setSessionCorrect] = useState(0);
+  const [sessionTotal, setSessionTotal] = useState(0);
+  const [done, setDone] = useState(false);
+  const [showExplain, setShowExplain] = useState(false);
+
+  const levels = ["A1", "A2", "B1", "B2", "C1"];
+
+  if (topic && !done) {
+    const ex = topic.exercises[exIdx];
+    const isCorrect = selected === ex.answer;
+    const isLast = exIdx === topic.exercises.length - 1;
+
+    const handleAnswer = (idx) => {
+      if (showResult) return;
+      setSelected(idx); setShowResult(true);
+      const correct = idx === ex.answer;
+      setSessionTotal(s => s + 1);
+      if (correct) setSessionCorrect(s => s + 1);
+      const cur = progress.grammar[topic.id] || { attempts: 0, correct: 0 };
+      const updated = { ...progress.grammar, [topic.id]: { attempts: cur.attempts + 1, correct: cur.correct + (correct ? 1 : 0), lastSeen: new Date().toISOString() } };
+      const newProgress = { ...progress, grammar: updated };
+      setProgress(newProgress); saveProgress(newProgress);
+    };
+
+    const next = () => {
+      if (isLast) setDone(true);
+      else { setExIdx(i => i + 1); setSelected(null); setShowResult(false); }
+    };
+
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-4">
+        <div className="flex items-center justify-between">
+          <BackButton onClick={() => { setTopic(null); setExIdx(0); setSelected(null); setShowResult(false); setSessionCorrect(0); setSessionTotal(0); setDone(false); setShowExplain(false); }} />
+          <span className="text-sm text-pink-600 font-mono">{exIdx + 1} / {topic.exercises.length}</span>
+        </div>
+        <div className="h-1.5 bg-pink-100 rounded-full overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-pink-400 to-rose-500 transition-all duration-300" style={{ width: `${((exIdx + (showResult ? 1 : 0)) / topic.exercises.length) * 100}%` }} />
+        </div>
+
+        {/* Show grammar rule toggle */}
+        {exIdx === 0 && (
+          <Card className="p-4 bg-gradient-to-br from-pink-50/60 to-rose-50/60">
+            <button onClick={() => setShowExplain(s => !s)} className="w-full flex items-center justify-between text-left">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-pink-500" />
+                <span className="font-semibold text-pink-950">Theorie</span>
+              </div>
+              {showExplain ? <EyeOff className="w-4 h-4 text-pink-400" /> : <Eye className="w-4 h-4 text-pink-400" />}
+            </button>
+            {showExplain && (
+              <p className="text-sm text-pink-900/85 leading-relaxed mt-3" dangerouslySetInnerHTML={renderMd(topic.nl)} />
+            )}
+          </Card>
+        )}
+
+        <Card className="p-5">
+          <div className="text-[10px] text-pink-500 font-bold uppercase tracking-widest mb-2">{topic.title}</div>
+          <p className="text-lg text-pink-950 font-medium leading-relaxed" style={{ fontFamily: "'Fraunces', serif" }}>{ex.q}</p>
+        </Card>
+
+        <div className="space-y-2.5">
+          {ex.options.map((opt, idx) => {
+            const isSelected = selected === idx;
+            const isCorrectChoice = idx === ex.answer;
+            let style = "bg-white border-pink-200 text-pink-950 active:bg-pink-50";
+            if (showResult && isCorrectChoice) style = "bg-emerald-50 border-emerald-400 text-emerald-900";
+            else if (showResult && isSelected && !isCorrectChoice) style = "bg-rose-50 border-rose-400 text-rose-900";
+            else if (showResult) style = "bg-white border-pink-100 text-pink-700/60";
+            return (
+              <button key={idx} onClick={() => handleAnswer(idx)} disabled={showResult}
+                className={`w-full flex items-center justify-between p-4 rounded-2xl border-2 transition text-left font-medium ${style}`}>
+                <span>{opt}</span>
+                {showResult && isCorrectChoice && <Check className="w-5 h-5 text-emerald-600" />}
+                {showResult && isSelected && !isCorrectChoice && <X className="w-5 h-5 text-rose-600" />}
+              </button>
+            );
+          })}
+        </div>
+
+        {showResult && (
+          <Card className={`p-4 ${isCorrect ? "bg-emerald-50/60 border-emerald-200" : "bg-rose-50/60 border-rose-200"}`}>
+            <div className="flex items-start gap-2">
+              {isCorrect ? <Check className="w-5 h-5 text-emerald-600 mt-0.5" /> : <X className="w-5 h-5 text-rose-600 mt-0.5" />}
+              <div className="flex-1">
+                <p className={`font-semibold ${isCorrect ? "text-emerald-900" : "text-rose-900"}`}>
+                  {isCorrect ? "Correct !" : "Niet helemaal"}
+                </p>
+                <p className="text-sm text-pink-900/85 mt-1">{ex.explain}</p>
+              </div>
+            </div>
+          </Card>
+        )}
+
+        {showResult && <PrimaryButton onClick={next}>{isLast ? "Klaar" : "Volgende"}</PrimaryButton>}
+      </div>
+    );
+  }
+
+  if (topic && done) {
+    const pct = Math.round((sessionCorrect / sessionTotal) * 100);
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-5">
+        <BackButton onClick={() => { setTopic(null); setDone(false); setSessionCorrect(0); setSessionTotal(0); setExIdx(0); }} />
+        <Card className="p-6 text-center bg-gradient-to-br from-pink-50 via-white to-rose-50 relative overflow-hidden">
+          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-pink-200/30 blur-3xl pointer-events-none" />
+          <div className="relative">
+            <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center mb-3 shadow-lg shadow-pink-500/30">
+              <Award className="w-8 h-8 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Bravo !</h2>
+            <p className="text-pink-700/80 mt-1">{topic.title}</p>
+            <div className="mt-5 text-6xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>{pct}%</div>
+            <p className="text-sm text-pink-700/70">{sessionCorrect} / {sessionTotal} correct</p>
+          </div>
+        </Card>
+        <PrimaryButton onClick={() => { setDone(false); setExIdx(0); setSelected(null); setShowResult(false); setSessionCorrect(0); setSessionTotal(0); }}>
+          <span className="flex items-center justify-center gap-2"><RotateCcw className="w-5 h-5" /> Opnieuw oefenen</span>
+        </PrimaryButton>
+        <SecondaryButton onClick={() => { setTopic(null); setDone(false); setSessionCorrect(0); setSessionTotal(0); setExIdx(0); }} className="w-full">
+          Ander onderwerp
+        </SecondaryButton>
+      </div>
+    );
+  }
+
+  if (level) {
+    const topics = GRAMMAR.filter(g => g.level === level);
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-4">
+        <BackButton onClick={() => setLevel(null)} />
+        <div>
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className="text-3xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Niveau {level}</h1>
+            <Pill color={level === "C1" ? "fuchsia" : level === "B2" ? "rose" : "pink"}>{topics.length} onderwerpen</Pill>
+          </div>
+          <p className="text-sm text-pink-700/70">Tik een onderwerp om te oefenen.</p>
+        </div>
+        <div className="space-y-2.5">
+          {topics.map((t) => {
+            const stat = progress.grammar[t.id];
+            const acc = stat && stat.attempts > 0 ? Math.round((stat.correct / stat.attempts) * 100) : null;
+            return (
+              <button key={t.id} onClick={() => { setTopic(t); setExIdx(0); setSelected(null); setShowResult(false); setSessionCorrect(0); setSessionTotal(0); setDone(false); setShowExplain(true); }} className="w-full text-left">
+                <Card className="p-4 active:scale-[0.99] transition">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-2xl bg-pink-50 flex items-center justify-center">
+                      <BookOpen className="w-5 h-5 text-pink-500" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-pink-950 truncate">{t.title}</div>
+                      <div className="text-xs text-pink-700/70 mt-0.5">
+                        {t.exercises.length} oefeningen{acc !== null && ` · ${acc}% correct`}
+                      </div>
+                    </div>
+                    {acc !== null && acc >= 80 && <Star className="w-4 h-4 text-amber-400" fill="currentColor" />}
+                    <ChevronRight className="w-5 h-5 text-pink-300" />
+                  </div>
+                </Card>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="px-5 pt-3 pb-8 space-y-4">
+      <BackButton onClick={onBack} />
+      <h1 className="text-3xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Grammatica</h1>
+      <p className="text-sm text-pink-700/80">Kies een niveau. A1-A2 zijn snelle herhaling, B1+ is waar het gewicht ligt voor C1.</p>
+      <div className="space-y-3">
+        {levels.map(lv => {
+          const topics = GRAMMAR.filter(g => g.level === lv);
+          const totalAttempts = topics.reduce((a, t) => a + ((progress.grammar[t.id] || {}).attempts || 0), 0);
+          const totalCorrect = topics.reduce((a, t) => a + ((progress.grammar[t.id] || {}).correct || 0), 0);
+          const acc = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : null;
+          const colors = {
+            A1: "from-emerald-300 to-teal-400", A2: "from-teal-300 to-cyan-400",
+            B1: "from-sky-300 to-pink-300", B2: "from-pink-400 to-rose-400", C1: "from-rose-500 to-fuchsia-500"
+          };
+          const labels = { A1: "Basis herhaling", A2: "Basis herhaling", B1: "Bouwsteen", B2: "Bouwsteen", C1: "Doel-niveau" };
+          return (
+            <button key={lv} onClick={() => setLevel(lv)} className="w-full text-left">
+              <Card className="p-5 active:scale-[0.99] transition">
+                <div className="flex items-center gap-4">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${colors[lv]} flex items-center justify-center shadow-sm`}>
+                    <span className="text-white font-bold text-lg" style={{ fontFamily: "'Fraunces', serif" }}>{lv}</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-bold text-pink-950">{labels[lv]}</div>
+                    <div className="text-xs text-pink-700/70 mt-0.5">{topics.length} onderwerpen{acc !== null && ` · ${acc}% correct`}</div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-pink-300" />
+                </div>
+              </Card>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// VOCAB SCREEN
+// ============================================================
+function VocabScreen({ progress, setProgress, onBack }) {
+  const [theme, setTheme] = useState(null);
+  const [mode, setMode] = useState(null);
+  const [idx, setIdx] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [quizOptions, setQuizOptions] = useState([]);
+  const [quizSelected, setQuizSelected] = useState(null);
+  const [sessionCorrect, setSessionCorrect] = useState(0);
+  const [sessionTotal, setSessionTotal] = useState(0);
+  const [done, setDone] = useState(false);
+
+  const markSeen = (themeId, wordIdx, correct = null) => {
+    const key = `${themeId}:${wordIdx}`;
+    const cur = progress.vocab[key] || { seen: 0, correct: 0, attempts: 0 };
+    const upd = { ...progress.vocab, [key]: {
+      seen: cur.seen + 1,
+      correct: cur.correct + (correct === true ? 1 : 0),
+      attempts: (cur.attempts || 0) + (correct !== null ? 1 : 0),
+      lastSeen: new Date().toISOString()
+    } };
+    const np = { ...progress, vocab: upd };
+    setProgress(np); saveProgress(np);
+  };
+
+  const startQuiz = (th) => {
+    setTheme(th); setMode("quiz"); setIdx(0); setQuizSelected(null);
+    setSessionCorrect(0); setSessionTotal(0); setDone(false);
+    generateQuizOptions(th, 0);
+  };
+
+  const generateQuizOptions = (th, i) => {
+    const correct = th.words[i];
+    const pool = th.words.filter((_, j) => j !== i);
+    const distractors = [];
+    while (distractors.length < 3 && pool.length > 0) {
+      distractors.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+    }
+    const all = [correct, ...distractors];
+    for (let k = all.length - 1; k > 0; k--) {
+      const j = Math.floor(Math.random() * (k + 1));
+      [all[k], all[j]] = [all[j], all[k]];
+    }
+    setQuizOptions(all);
+  };
+
+  // QUIZ done
+  if (theme && mode === "quiz" && done) {
+    const pct = Math.round((sessionCorrect / sessionTotal) * 100);
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-5">
+        <BackButton onClick={() => { setTheme(null); setMode(null); setDone(false); }} />
+        <Card className="p-6 text-center bg-gradient-to-br from-pink-50 via-white to-rose-50">
+          <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center mb-3 shadow-lg shadow-pink-500/30">
+            <Award className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Bravo !</h2>
+          <p className="text-pink-700/80 mt-1">{theme.theme}</p>
+          <div className="mt-4 text-5xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>{pct}%</div>
+          <p className="text-sm text-pink-700/70">{sessionCorrect} / {sessionTotal}</p>
+        </Card>
+        <PrimaryButton onClick={() => startQuiz(theme)}>
+          <span className="flex items-center justify-center gap-2"><RotateCcw className="w-5 h-5" /> Opnieuw</span>
+        </PrimaryButton>
+        <SecondaryButton onClick={() => { setMode("flashcards"); setIdx(0); setRevealed(false); setDone(false); }} className="w-full">
+          Bekijk flashcards
+        </SecondaryButton>
+      </div>
+    );
+  }
+
+  // QUIZ active
+  if (theme && mode === "quiz") {
+    const word = theme.words[idx];
+    const isLast = idx === theme.words.length - 1;
+    const handleAnswer = (option) => {
+      if (quizSelected !== null) return;
+      setQuizSelected(option);
+      const correct = option.fr === word.fr;
+      setSessionTotal(s => s + 1);
+      if (correct) setSessionCorrect(s => s + 1);
+      markSeen(theme.id, idx, correct);
+    };
+    const nextQ = () => {
+      if (isLast) setDone(true);
+      else { setIdx(i => i + 1); setQuizSelected(null); generateQuizOptions(theme, idx + 1); }
+    };
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-4">
+        <div className="flex items-center justify-between">
+          <BackButton onClick={() => { setMode(null); setIdx(0); setQuizSelected(null); }} />
+          <span className="text-sm text-pink-600 font-mono">{idx + 1} / {theme.words.length}</span>
+        </div>
+        <div className="h-1.5 bg-pink-100 rounded-full overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-pink-400 to-rose-500 transition-all" style={{ width: `${((idx + (quizSelected ? 1 : 0)) / theme.words.length) * 100}%` }} />
+        </div>
+        <Card className="p-6 text-center bg-gradient-to-br from-pink-50 to-rose-50">
+          <div className="text-[10px] text-pink-500 font-bold uppercase tracking-widest mb-2">Welk Frans woord betekent</div>
+          <p className="text-2xl font-bold text-pink-950 leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>{word.nl}</p>
+        </Card>
+        <div className="space-y-2.5">
+          {quizOptions.map((opt, j) => {
+            const isCorrect = opt.fr === word.fr;
+            const isSelected = quizSelected && quizSelected.fr === opt.fr;
+            let style = "bg-white border-pink-200 text-pink-950 active:bg-pink-50";
+            if (quizSelected && isCorrect) style = "bg-emerald-50 border-emerald-400 text-emerald-900";
+            else if (quizSelected && isSelected) style = "bg-rose-50 border-rose-400 text-rose-900";
+            else if (quizSelected) style = "bg-white border-pink-100 text-pink-700/60";
+            return (
+              <button key={j} onClick={() => handleAnswer(opt)} disabled={quizSelected !== null}
+                className={`w-full flex items-center justify-between p-4 rounded-2xl border-2 transition text-left font-medium ${style}`}>
+                <span>{opt.fr}</span>
+                {quizSelected && isCorrect && <Check className="w-5 h-5 text-emerald-600" />}
+                {quizSelected && isSelected && !isCorrect && <X className="w-5 h-5 text-rose-600" />}
+              </button>
+            );
+          })}
+        </div>
+        {quizSelected && (
+          <Card className="p-4 bg-pink-50/60">
+            <p className="text-[10px] text-pink-500 font-bold uppercase tracking-widest mb-1">Voorbeeld</p>
+            <p className="text-sm text-pink-950 italic">"{word.ex}"</p>
+          </Card>
+        )}
+        {quizSelected && <PrimaryButton onClick={nextQ}>{isLast ? "Klaar" : "Volgende"}</PrimaryButton>}
+      </div>
+    );
+  }
+
+  // FLASHCARDS
+  if (theme && mode === "flashcards") {
+    const word = theme.words[idx];
+    const isLast = idx === theme.words.length - 1;
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-4">
+        <div className="flex items-center justify-between">
+          <BackButton onClick={() => { setMode(null); setIdx(0); setRevealed(false); }} />
+          <span className="text-sm text-pink-600 font-mono">{idx + 1} / {theme.words.length}</span>
+        </div>
+        <div className="h-1.5 bg-pink-100 rounded-full overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-pink-400 to-rose-500 transition-all" style={{ width: `${((idx + 1) / theme.words.length) * 100}%` }} />
+        </div>
+        <button onClick={() => { if (!revealed) { setRevealed(true); markSeen(theme.id, idx); } }} className="w-full">
+          <Card className="p-8 min-h-[280px] flex flex-col justify-center bg-gradient-to-br from-pink-50 via-white to-rose-50 cursor-pointer active:scale-[0.99] transition">
+            <div className="text-[10px] text-pink-500 font-bold uppercase tracking-widest text-center mb-3">{theme.theme}</div>
+            <p className="text-3xl font-bold text-pink-950 text-center leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>{word.fr}</p>
+            {revealed ? (
+              <>
+                <p className="text-lg text-pink-700 text-center mt-5 font-medium">{word.nl}</p>
+                <div className="mt-4 p-3 bg-white/80 rounded-2xl">
+                  <p className="text-sm text-pink-900/85 italic text-center">"{word.ex}"</p>
+                </div>
+              </>
+            ) : (
+              <p className="text-sm text-pink-400 text-center mt-6 flex items-center justify-center gap-1">
+                <Eye className="w-4 h-4" /> Tik om vertaling te zien
+              </p>
+            )}
+          </Card>
+        </button>
+        <div className="flex gap-2">
+          <SecondaryButton onClick={() => { if (idx > 0) { setIdx(i => i - 1); setRevealed(false); } }} className="flex-1">
+            <span className="flex items-center justify-center gap-1"><ChevronLeft className="w-4 h-4" /> Vorige</span>
+          </SecondaryButton>
+          <PrimaryButton onClick={() => { if (isLast) { setMode(null); setIdx(0); setRevealed(false); } else { setIdx(i => i + 1); setRevealed(false); } }} className="flex-1">
+            {isLast ? "Klaar" : "Volgende"}
+          </PrimaryButton>
+        </div>
+      </div>
+    );
+  }
+
+  // THEME MENU
+  if (theme && !mode) {
+    return (
+      <div className="px-5 pt-3 pb-8 space-y-4">
+        <BackButton onClick={() => setTheme(null)} />
+        <div>
+          <h1 className="text-3xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>{theme.icon} {theme.theme}</h1>
+          <p className="text-sm text-pink-700/70 mt-1">{theme.words.length} C1-woorden om te oefenen</p>
+        </div>
+        <button onClick={() => { setMode("flashcards"); setIdx(0); setRevealed(false); }} className="w-full text-left">
+          <Card className="p-5 active:scale-[0.99] transition">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-400 flex items-center justify-center shadow-sm">
+                <BookMarked className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-pink-950">Flashcards</h3>
+                <p className="text-xs text-pink-700/70 mt-0.5">Bekijk woord + vertaling + voorbeeld</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-pink-300" />
+            </div>
+          </Card>
+        </button>
+        <button onClick={() => startQuiz(theme)} className="w-full text-left">
+          <Card className="p-5 active:scale-[0.99] transition">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-400 to-fuchsia-400 flex items-center justify-center shadow-sm">
+                <Brain className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-pink-950">Quiz (NL → FR)</h3>
+                <p className="text-xs text-pink-700/70 mt-0.5">Kies het juiste Franse woord</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-pink-300" />
+            </div>
+          </Card>
+        </button>
+        <div>
+          <h3 className="text-[11px] font-bold text-pink-700/70 uppercase tracking-widest mt-4 mb-2 px-1">Woordenlijst</h3>
+          <Card className="p-4 space-y-3">
+            {theme.words.map((w, i) => (
+              <div key={i} className="pb-3 border-b border-pink-100 last:border-0 last:pb-0">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-semibold text-pink-950">{w.fr}</span>
+                  <span className="text-xs text-pink-600 text-right">{w.nl}</span>
+                </div>
+                <p className="text-xs text-pink-700/70 italic mt-1">"{w.ex}"</p>
+              </div>
+            ))}
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  // THEMES LIST
+  return (
+    <div className="px-5 pt-3 pb-8 space-y-4">
+      <BackButton onClick={onBack} />
+      <h1 className="text-3xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Vocabulaire</h1>
+      <p className="text-sm text-pink-700/80">12 thema's die het DELF C1 dekt. Leer per thema met flashcards en quiz.</p>
+      <div className="grid grid-cols-2 gap-3">
+        {VOCAB.map(th => {
+          const seenCount = th.words.filter((_, i) => progress.vocab[`${th.id}:${i}`]).length;
+          const pct = Math.round((seenCount / th.words.length) * 100);
+          return (
+            <button key={th.id} onClick={() => setTheme(th)} className="text-left">
+              <Card className="p-4 active:scale-[0.99] transition h-full">
+                <div className="text-3xl mb-2">{th.icon}</div>
+                <h3 className="font-semibold text-pink-950 text-sm leading-tight">{th.theme}</h3>
+                <div className="mt-3 h-1 bg-pink-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-pink-400 to-rose-400" style={{ width: `${pct}%` }} />
+                </div>
+                <p className="text-[10px] text-pink-600 mt-1.5 font-medium">{seenCount}/{th.words.length} gezien</p>
+              </Card>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+// ============================================================
+// PROGRESS SCREEN
+// ============================================================
+function ProgressScreen({ user, progress, onBack }) {
+  const levels = ["A1", "A2", "B1", "B2", "C1"];
+  const grammarByLevel = levels.map(lv => {
+    const topics = GRAMMAR.filter(g => g.level === lv);
+    const totalAttempts = topics.reduce((a, t) => a + ((progress.grammar[t.id] || {}).attempts || 0), 0);
+    const totalCorrect = topics.reduce((a, t) => a + ((progress.grammar[t.id] || {}).correct || 0), 0);
+    return { level: lv, topics, totalAttempts, totalCorrect, acc: totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0 };
+  });
+
+  // Weak topics: <60% accuracy and >=3 attempts
+  const weakTopics = GRAMMAR
+    .map(t => ({ ...t, stat: progress.grammar[t.id] }))
+    .filter(t => t.stat && t.stat.attempts >= 3 && (t.stat.correct / t.stat.attempts) < 0.6)
+    .sort((a, b) => (a.stat.correct / a.stat.attempts) - (b.stat.correct / b.stat.attempts))
+    .slice(0, 5);
+
+  const strongTopics = GRAMMAR
+    .map(t => ({ ...t, stat: progress.grammar[t.id] }))
+    .filter(t => t.stat && t.stat.attempts >= 3 && (t.stat.correct / t.stat.attempts) >= 0.85)
+    .slice(0, 5);
+
+  const totalEssays = (progress.essays || []).length;
+  const totalSyntheses = (progress.syntheses || []).length;
+  const totalVocabSeen = Object.keys(progress.vocab || {}).length;
+  const totalVocabAvailable = VOCAB.reduce((a, t) => a + t.words.length, 0);
+
+  return (
+    <div className="px-5 pt-3 pb-8 space-y-5">
+      <BackButton onClick={onBack} />
+      <h1 className="text-3xl font-bold text-pink-950" style={{ fontFamily: "'Fraunces', serif" }}>Voortgang</h1>
+
+      {/* Streak + sessions */}
+      <div className="grid grid-cols-2 gap-3">
+        <Card className="p-4 bg-gradient-to-br from-orange-50 to-amber-50">
+          <div className="flex items-center gap-1.5 text-orange-600 text-[10px] font-bold tracking-widest mb-1.5">
+            <Flame className="w-3 h-3" fill="currentColor" /> STREAK
+          </div>
+          <div className="text-3xl font-bold text-pink-950">{user.streak || 0}</div>
+          <div className="text-xs text-orange-700/70">dagen op rij</div>
+        </Card>
+        <Card className="p-4 bg-gradient-to-br from-pink-50 to-rose-50">
+          <div className="flex items-center gap-1.5 text-pink-600 text-[10px] font-bold tracking-widest mb-1.5">
+            <Calendar className="w-3 h-3" /> SESSIES
+          </div>
+          <div className="text-3xl font-bold text-pink-950">{user.totalSessions || 0}</div>
+          <div className="text-xs text-pink-700/70">in totaal</div>
+        </Card>
+      </div>
+
+      {/* Schrijven progress */}
+      <Card className="p-4">
+        <h2 className="font-bold text-pink-950 mb-3 flex items-center gap-2">
+          <PenLine className="w-4 h-4 text-pink-500" /> Schrijven
+        </h2>
+        <div className="space-y-3">
+          <div>
+            <div className="flex items-baseline justify-between mb-1">
+              <span className="text-sm text-pink-900">Essais</span>
+              <span className="text-xs text-pink-600 font-mono">{totalEssays} / {ESSAY_PROMPTS.length}</span>
+            </div>
+            <div className="h-2 bg-pink-100 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-pink-400 to-rose-400" style={{ width: `${Math.min(100, (totalEssays / ESSAY_PROMPTS.length) * 100)}%` }} />
+            </div>
+          </div>
+          <div>
+            <div className="flex items-baseline justify-between mb-1">
+              <span className="text-sm text-pink-900">Synthèses</span>
+              <span className="text-xs text-pink-600 font-mono">{totalSyntheses} / {SYNTHESE_PROMPTS.length}</span>
+            </div>
+            <div className="h-2 bg-pink-100 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-rose-400 to-fuchsia-400" style={{ width: `${Math.min(100, (totalSyntheses / SYNTHESE_PROMPTS.length) * 100)}%` }} />
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Grammar by level */}
+      <Card className="p-4">
+        <h2 className="font-bold text-pink-950 mb-3 flex items-center gap-2">
+          <BookOpen className="w-4 h-4 text-pink-500" /> Grammatica per niveau
+        </h2>
+        <div className="space-y-3">
+          {grammarByLevel.map(g => {
+            const colors = {
+              A1: "from-emerald-300 to-teal-400", A2: "from-teal-300 to-cyan-400",
+              B1: "from-sky-300 to-pink-300", B2: "from-pink-400 to-rose-400", C1: "from-rose-500 to-fuchsia-500"
+            };
+            return (
+              <div key={g.level}>
+                <div className="flex items-baseline justify-between mb-1">
+                  <span className="text-sm font-semibold text-pink-900">{g.level}</span>
+                  <span className="text-xs text-pink-600 font-mono">{g.totalAttempts > 0 ? `${g.acc}%` : "—"} · {g.totalAttempts} pogingen</span>
+                </div>
+                <div className="h-2 bg-pink-100 rounded-full overflow-hidden">
+                  <div className={`h-full bg-gradient-to-r ${colors[g.level]}`} style={{ width: `${g.acc}%` }} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Card>
+
+      {/* Weak topics */}
+      {weakTopics.length > 0 && (
+        <Card className="p-4 bg-gradient-to-br from-rose-50/60 to-pink-50/60">
+          <h2 className="font-bold text-pink-950 mb-3 flex items-center gap-2">
+            <Target className="w-4 h-4 text-rose-500" /> Aandachtspunten
+          </h2>
+          <p className="text-xs text-pink-700/70 mb-3">Hier scoor je onder de 60% — extra oefenen!</p>
+          <div className="space-y-2">
+            {weakTopics.map(t => {
+              const acc = Math.round((t.stat.correct / t.stat.attempts) * 100);
+              return (
+                <div key={t.id} className="flex items-center justify-between bg-white/70 p-3 rounded-2xl">
+                  <div className="min-w-0 flex-1">
+                    <div className="font-medium text-sm text-pink-950 truncate">{t.title}</div>
+                    <div className="text-[10px] text-pink-500">{t.level}</div>
+                  </div>
+                  <div className="text-sm font-bold text-rose-600 font-mono">{acc}%</div>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      )}
+
+      {/* Strong topics */}
+      {strongTopics.length > 0 && (
+        <Card className="p-4 bg-gradient-to-br from-emerald-50/60 to-teal-50/60">
+          <h2 className="font-bold text-pink-950 mb-3 flex items-center gap-2">
+            <Star className="w-4 h-4 text-amber-500" fill="currentColor" /> Sterke punten
+          </h2>
+          <div className="space-y-2">
+            {strongTopics.map(t => {
+              const acc = Math.round((t.stat.correct / t.stat.attempts) * 100);
+              return (
+                <div key={t.id} className="flex items-center justify-between bg-white/70 p-3 rounded-2xl">
+                  <div className="min-w-0 flex-1">
+                    <div className="font-medium text-sm text-pink-950 truncate">{t.title}</div>
+                    <div className="text-[10px] text-pink-500">{t.level}</div>
+                  </div>
+                  <div className="text-sm font-bold text-emerald-600 font-mono">{acc}%</div>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      )}
+
+      {/* Vocab */}
+      <Card className="p-4">
+        <h2 className="font-bold text-pink-950 mb-3 flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-pink-500" /> Vocabulaire
+        </h2>
+        <div className="flex items-baseline justify-between mb-2">
+          <span className="text-sm text-pink-900">Woorden gezien</span>
+          <span className="text-xs text-pink-600 font-mono">{totalVocabSeen} / {totalVocabAvailable}</span>
+        </div>
+        <div className="h-2 bg-pink-100 rounded-full overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-fuchsia-400 to-pink-400" style={{ width: `${Math.min(100, (totalVocabSeen / totalVocabAvailable) * 100)}%` }} />
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          {VOCAB.map(th => {
+            const seenCount = th.words.filter((_, i) => progress.vocab[`${th.id}:${i}`]).length;
+            const pct = Math.round((seenCount / th.words.length) * 100);
+            return (
+              <div key={th.id} className="text-xs">
+                <div className="flex items-baseline justify-between mb-0.5 gap-1">
+                  <span className="text-pink-900 truncate">{th.icon} {th.theme.split(" ")[0]}</span>
+                  <span className="text-pink-500 font-mono">{pct}%</span>
+                </div>
+                <div className="h-1 bg-pink-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-pink-400" style={{ width: `${pct}%` }} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Card>
+
+      <Card className="p-4 bg-gradient-to-br from-pink-50/60 to-amber-50/60 text-center">
+        <p className="text-xs text-pink-700/70">Volgende streak-update bij sessie morgen 🌸</p>
+      </Card>
+    </div>
+  );
+}
+
+
+// ============================================================
+// MAIN APP
+// ============================================================
+function App() {
+  const [screen, setScreen] = useState("home");
+  const [user, setUser] = useState(defaultUser);
+  const [progress, setProgress] = useState(defaultProgress);
+  const [writings, setWritings] = useState([]);
+  const [hasKey, setHasKey] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const state = loadState();
+    const newUser = updateStreak(state.user);
+    setUser(newUser);
+    setProgress(state.progress);
+    setWritings(state.writings);
+    saveUser(newUser);
+    setHasKey(!!state.apikey);
+    setLoaded(true);
+  }, []);
+
+  const navigate = (s) => {
+    setScreen(s);
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (!loaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 text-pink-500 animate-spin" />
+          <p className="text-pink-600 text-sm">Chargement...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!hasKey) {
+    return <SetupScreen onSave={() => setHasKey(true)} />;
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-pink-50/60 via-rose-50/30 to-white relative" style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-40 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-pink-200/30 to-rose-200/20 blur-3xl" />
+        <div className="absolute -bottom-40 -left-20 w-96 h-96 rounded-full bg-gradient-to-tr from-fuchsia-200/20 to-pink-200/30 blur-3xl" />
+      </div>
+
+      <div className="relative max-w-md mx-auto pb-28">
+        {screen === "home" && <HomeScreen user={user} progress={progress} onNavigate={navigate} />}
+        {screen === "write" && <WritingScreen progress={progress} setProgress={setProgress} writings={writings} setWritings={setWritings} onBack={() => navigate("home")} />}
+        {screen === "grammar" && <GrammarScreen progress={progress} setProgress={setProgress} onBack={() => navigate("home")} />}
+        {screen === "vocab" && <VocabScreen progress={progress} setProgress={setProgress} onBack={() => navigate("home")} />}
+        {screen === "progress" && <ProgressScreen user={user} progress={progress} onBack={() => navigate("home")} />}
+        {screen === "settings" && <SettingsScreen onBack={() => navigate("home")} onKeyChanged={() => setHasKey(true)} />}
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0 z-40 safe-bottom">
+        <div className="max-w-md mx-auto">
+          <div className="mx-3 bg-white/90 backdrop-blur-xl rounded-3xl shadow-[0_-8px_32px_-8px_rgba(244,114,182,0.25)] border border-pink-100/80">
+            <div className="grid grid-cols-5 px-2 py-2">
+              {[
+                { id: "home", I: Home, label: "Accueil" },
+                { id: "write", I: PenLine, label: "Écrire" },
+                { id: "grammar", I: BookOpen, label: "Gram." },
+                { id: "vocab", I: Sparkles, label: "Vocab" },
+                { id: "progress", I: TrendingUp, label: "Progrès" }
+              ].map(tab => {
+                const active = screen === tab.id;
+                return (
+                  <button key={tab.id} onClick={() => navigate(tab.id)}
+                    className={`flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-2xl transition ${active ? "bg-gradient-to-br from-pink-100 to-rose-100" : "active:bg-pink-50"}`}>
+                    <tab.I className={`w-5 h-5 ${active ? "text-pink-600" : "text-pink-400"}`} strokeWidth={active ? 2.5 : 2} />
+                    <span className={`text-[10px] font-semibold ${active ? "text-pink-700" : "text-pink-500"}`}>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
